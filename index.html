@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI Scam Sensei — Demo</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container">
+      <h1>AI Scam Sensei</h1>
+      <p class="lead">Paste a message (email, text, or DM) and get a risk score with human-readable reasons.</p>
+
+      <label for="message">Message to analyze</label>
+      <textarea id="message" rows="8" placeholder="Paste message text here..."></textarea>
+
+      <div class="controls">
+        <button id="analyzeBtn">Analyze</button>
+        <button id="examplesBtn">Load Example</button>
+      </div>
+
+      <section id="result" class="card hidden">
+        <h2 id="verdict"></h2>
+        <div class="meter">
+          <div id="meterFill" class="meter-fill"></div>
+        </div>
+        <p><strong>Score:</strong> <span id="score">0</span></p>
+        <ul id="reasons"></ul>
+        <details>
+          <summary>Advanced: Model integration (optional)</summary>
+          <p>To enable a model API call, enter a Hugging Face API key and model name in the README steps.</p>
+        </details>
+      </section>
+
+      <section class="notes">
+        <h3>About</h3>
+        <p>This demo combines explainable heuristics with optional model output to help people spot scams. It's an educational tool, not a definitive detector.</p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
