@@ -13,6 +13,11 @@ Hugging Face notes
 - To call a model, get an API key from https://huggingface.co/settings/tokens and then call `callModel(text, API_KEY, MODEL_NAME)`.
 - Example model types: a phishing classifier or general text classification model.
 
+Usage
+1. Open `index.html` in the browser via the local server.
+2. Paste your message and click "Analyze" for heuristic results.
+3. The page shows explainable reasons and a risk score. No external model calls are required.
+
 Deployment
 - Deploy via GitHub Pages by pushing this folder to a repository and enabling Pages.
 

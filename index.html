@@ -12,23 +12,33 @@
       <p class="lead">Paste a message (email, text, or DM) and get a risk score with human-readable reasons.</p>
 
       <label for="message">Message to analyze</label>
-      <textarea id="message" rows="8" placeholder="Paste message text here..."></textarea>
+      <textarea id="message" rows="8" placeholder="Paste message text here..." aria-describedby="messageHint"></textarea>
+      <p id="messageHint" style="font-size:12px;color:#666">Tip: Try pasting AI-generated text, phishing messages, or human writing to see detection results.</p>
 
       <div class="controls">
-        <button id="analyzeBtn">Analyze</button>
-        <button id="examplesBtn">Load Example</button>
+        <button id="analyzeBtn" aria-label="Analyze the message for scams and AI">Analyze</button>
+        <label for="exampleSelect" style="margin-left:12px">Try an example:</label>
+        <select id="exampleSelect">
+          <option value="">-- Choose an example --</option>
+          <option value="scam">Phishing Scam</option>
+          <option value="ai-chatgpt">AI-Generated (ChatGPT)</option>
+          <option value="ai-formal">AI-Generated (Formal)</option>
+          <option value="human-casual">Human Writing (Casual)</option>
+          <option value="human-professional">Human Writing (Professional)</option>
+        </select>
       </div>
+      
 
-      <section id="result" class="card hidden">
-        <h2 id="verdict"></h2>
-        <div class="meter">
+      <section id="result" class="card hidden" aria-live="polite" aria-label="Analysis results">
+        <h2 id="verdict" role="status"></h2>
+        <div class="meter" aria-label="Risk meter">
           <div id="meterFill" class="meter-fill"></div>
         </div>
-        <p><strong>Score:</strong> <span id="score">0</span></p>
-        <ul id="reasons"></ul>
+        <p><strong>Score:</strong> <span id="score" role="status">0</span></p>
+        <ul id="reasons" role="region" aria-label="Detection reasons"></ul>
         <details>
-          <summary>Advanced: Model integration (optional)</summary>
-          <p>To enable a model API call, enter a Hugging Face API key and model name in the README steps.</p>
+          <summary>Notes</summary>
+          <p>This demo uses explainable heuristics to analyze messages. No external model calls are required.</p>
         </details>
       </section>
 
