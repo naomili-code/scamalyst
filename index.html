@@ -31,10 +31,22 @@
 
       <section id="result" class="card hidden" aria-live="polite" aria-label="Analysis results">
         <h2 id="verdict" role="status"></h2>
-        <div class="meter" aria-label="Risk meter">
-          <div id="meterFill" class="meter-fill"></div>
+        
+        <div style="margin-top:12px">
+          <p style="margin-bottom:4px"><strong>Scam Risk Score:</strong></p>
+          <div class="meter" aria-label="Scam risk meter">y
+            <div id="meterFill" class="meter-fill" style="background:linear-gradient(90deg,#2ecc71,#f1c40f,#e74c3c)"></div>
+          </div>
         </div>
-        <p><strong>Score:</strong> <span id="score" role="status">0</span></p>
+        
+        <div style="margin-top:12px">
+          <p style="margin-bottom:4px"><strong>AI Likelihood Score:</strong></p>
+          <div class="meter" aria-label="AI likelihood meter">
+            <div id="aiMeterFill" class="meter-fill" style="background:linear-gradient(90deg,#3498db,#9b59b6)"></div>
+          </div>
+        </div>
+        
+        <p style="margin-top:12px"><strong>Numeric Scores:</strong> <span id="score" role="status">0</span></p>
         <ul id="reasons" role="region" aria-label="Detection reasons"></ul>
         <details>
           <summary>Notes</summary>

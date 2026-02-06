@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Analyze Messages — ScamSensei</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo">🧠 ScamSensei</h1>
+        <ul class="nav-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="analyze.html" class="active">Analyze</a></li>
+          <li><a href="practice.html">Practice</a></li>
+          <li><a href="about.html">About & Ethics</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container analyze-page">
+      <h2>Analyze a Message</h2>
+      <p class="subtitle">Paste an email, DM, text, or social media message to see what makes it risky.</p>
+
+      <!-- Input Panel -->
+      <section class="input-panel">
+        <label for="message">Your Message</label>
+        <textarea id="message" rows="10" placeholder="Paste an email, text, DM, or social media message here..." aria-describedby="messageHint"></textarea>
+        <p id="messageHint" style="font-size:12px;color:#666;margin-top:8px">Tip: Try pasting suspicious messages from your email spam folder or a phishing email you received.</p>
+
+        <div class="input-controls">
+          <button id="analyzeBtn" class="btn btn-primary" aria-label="Analyze the message for scams and AI">Analyze Message</button>
+          <button id="clearBtn" class="btn btn-secondary">Clear</button>
+          <label for="exampleSelect" style="margin-left:auto">Try an example:</label>
+          <select id="exampleSelect">
+            <option value="">-- Choose an example --</option>
+            <option value="scam">Phishing Scam</option>
+            <option value="ai-chatgpt">AI-Generated (ChatGPT)</option>
+            <option value="ai-formal">AI-Generated (Formal)</option>
+            <option value="human-casual">Human Writing (Casual)</option>
+            <option value="human-professional">Human Writing (Professional)</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Results Panel -->
+      <section id="result" class="result-panel hidden" aria-live="polite" aria-label="Analysis results">
+        
+        <!-- Verdict -->
+        <div class="verdict-section">
+          <h3 id="verdict" role="status"></h3>
+          <p id="verdictExplanation" class="verdict-explanation"></p>
+        </div>
+
+        <!-- Score Meters -->
+        <div class="score-section">
+          <div class="score-meter">
+            <p><strong>Scam Risk Score</strong></p>
+            <div class="meter" aria-label="Scam risk meter">
+              <div id="meterFill" class="meter-fill" style="background:linear-gradient(90deg,#2ecc71,#f1c40f,#e74c3c)"></div>
+            </div>
+            <p id="scamScore" class="score-label">0/10</p>
+          </div>
+
+          <div class="score-meter">
+            <p><strong>AI Likelihood Score</strong></p>
+            <div class="meter" aria-label="AI likelihood meter">
+              <div id="aiMeterFill" class="meter-fill" style="background:linear-gradient(90deg,#3498db,#9b59b6)"></div>
+            </div>
+            <p id="aiScore" class="score-label">0%</p>
+          </div>
+        </div>
+
+        <!-- Red Flags -->
+        <div class="red-flags-section">
+          <h4>🚩 Red Flags Detected</h4>
+          <ul id="reasons" role="region" aria-label="Detection reasons" class="red-flags-list"></ul>
+        </div>
+
+        <!-- Teach Me Why -->
+        <div class="teach-section">
+          <h4>🧠 Why This Matters</h4>
+          <div id="teachingPoints" class="teaching-points"></div>
+        </div>
+
+      </section>
+
+      <!-- Empty State -->
+      <section id="emptyState" class="empty-state">
+        <p>👆 Paste a message above and click "Analyze" to get started.</p>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>&copy; 2026 ScamSensei | Made for the Girls Who Code Challenge</p>
+      <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

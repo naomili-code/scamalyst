@@ -1,4 +1,3 @@
-// AI Scam Sensei - rule-based analyzer for scams + AI-detection
 const analyzeBtn = document.getElementById('analyzeBtn');
 const examplesBtn = document.getElementById('examplesBtn');
 const messageEl = document.getElementById('message');
@@ -7,9 +6,44 @@ const verdictEl = document.getElementById('verdict');
 const scoreEl = document.getElementById('score');
 const reasonsEl = document.getElementById('reasons');
 const meterFill = document.getElementById('meterFill');
+const aiMeterFill = document.getElementById('aiMeterFill');
 
 const urgencyWords = ['urgent','immediately','act now','final notice','asap','verify now','last chance','limited time'];
 const personalRequests = ['password','ssn','social security','bank account','verify your account','card number','cvv','pin'];
+
+// Only set up event listeners if elements exist (on analyze page)
+if(analyzeBtn) {
+  analyzeBtn.addEventListener('click', () => {
+    const text = messageEl.value;
+    if(!text.trim()) {
+      alert('Please paste a message to analyze.');
+      return;
+    }
+    const scamRes = analyzeMessage(text);
+    const aiRes = detectAI(text);
+    renderResult(scamRes, aiRes);
+  });
+}
+
+if(examplesBtn || document.getElementById('exampleSelect')) {
+  const selectEl = document.getElementById('exampleSelect');
+  if(selectEl) {
+    selectEl.addEventListener('change', (e) => {
+      if(e.target.value && messageEl) {
+        messageEl.value = exampleMessages[e.target.value];
+      }
+    });
+  }
+}
+
+// Clear button handler
+const clearBtn = document.getElementById('clearBtn');
+if(clearBtn && messageEl) {
+  clearBtn.addEventListener('click', () => {
+    messageEl.value = '';
+    if(resultEl) resultEl.classList.add('hidden');
+  });
+}
 
 function analyzeMessage(text){
   text = (text||'').trim();
@@ -60,14 +94,16 @@ function analyzeMessage(text){
 }
 
 function renderResult(scamRes, aiRes){
+  if(!resultEl) return; // Only render if on analyze page
+  
   resultEl.classList.remove('hidden');
   
   // Scam detection section
   verdictEl.innerHTML = `<strong>Scam Risk:</strong> ${scamRes.verdict}<br/><strong>AI Likelihood:</strong> ${aiRes.verdict}`;
   verdictEl.setAttribute('role', 'status');
   
-  scoreEl.textContent = `Scam: ${scamRes.score}/10 | AI: ${Math.round(aiRes.score*100)}%`;
-  scoreEl.setAttribute('role', 'status');
+  const scoreEl = document.getElementById('score');
+  if(scoreEl) scoreEl.textContent = `Scam: ${scamRes.score}/10 | AI: ${Math.round(aiRes.score*100)}%`;
   
   reasonsEl.innerHTML = '';
   const heading = document.createElement('strong');
@@ -83,21 +119,17 @@ function renderResult(scamRes, aiRes){
   reasonsEl.appendChild(aiHeading);
   aiRes.reasons.forEach(r=>{ const li = document.createElement('li'); li.textContent = r; reasonsEl.appendChild(li); });
 
-  // meter width (based on scam score)
-  const pct = Math.min(100, Math.round((scamRes.score/10)*100));
-  meterFill.style.width = pct+'%';
+  // Scam meter width (0-10 scale)
+  const scamPct = Math.min(100, Math.round((scamRes.score/10)*100));
+  meterFill.style.width = scamPct+'%';
+  
+  // AI meter width (0-1 scale converted to percentage)
+  const aiPct = Math.min(100, Math.round(aiRes.score*100));
+  aiMeterFill.style.width = aiPct+'%';
 }
 
-analyzeBtn.addEventListener('click', ()=>{
-  const text = messageEl.value;
-  const scamRes = analyzeMessage(text);
-  const aiRes = detectAI(text);
-  renderResult(scamRes, aiRes);
-});
-
-const exampleSelect = document.getElementById('exampleSelect');
-
-const examples = {
+// Example messages object
+const exampleMessages = {
   scam: `Dear Valued Customer,
 
 Your account has been SUSPENDED immediately. Verify your account now by clicking here https://bit.ly/verify-now or your account will be permanently closed! Act now!
@@ -114,14 +146,6 @@ Security Team`,
   
   'human-professional': `I wanted to share some thoughts on improving our security practices. There are a few things we could do better. First, we should consider updating our password policies. Also, maybe we need clearer guidelines for identifying suspicious emails? Let me know what you think.`
 };
-
-exampleSelect.addEventListener('change', (e)=>{
-  const key = e.target.value;
-  if(key && examples[key]){
-    messageEl.value = examples[key];
-    messageEl.focus();
-  }
-});
 
 // AI Detection: heuristic features to detect AI-generated text
 function detectAI(text){

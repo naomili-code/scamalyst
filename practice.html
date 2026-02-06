@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Practice Mode — ScamSensei</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo">🧠 ScamSensei</h1>
+        <ul class="nav-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="analyze.html">Analyze</a></li>
+          <li><a href="practice.html" class="active">Practice</a></li>
+          <li><a href="about.html">About & Ethics</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container practice-page">
+      <h2>Practice Mode</h2>
+      <p class="subtitle">Test your skills! Read each scenario and guess: Safe, Suspicious, or Scam?</p>
+
+      <div id="practiceContainer" class="practice-container">
+        <!-- Scenarios will be inserted here by JavaScript -->
+      </div>
+
+      <div id="practiceStats" class="practice-stats hidden">
+        <h3>Your Results</h3>
+        <p>Correct: <span id="correctCount">0</span> / <span id="totalCount">0</span></p>
+        <button onclick="location.reload()" class="btn btn-primary">Try Again</button>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 ScamSensei | Made for the Girls Who Code Challenge</p>
+      <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
+    </footer>
+
+    <script>
+      const scenarios = [
+        {
+          message: "You've won a $1,000 Amazon gift card! Claim it now: bit.ly/amazongift",
+          correct: "scam",
+          explanation: "Too good to be true + shortened link + urgency. Classic phishing."
+        },
+        {
+          message: "Hi, it's your bank. We need to verify your account. Click here immediately: verify-secure.net/bank",
+          correct: "scam",
+          explanation: "Fake authority (bank) + urgency + suspicious domain that mimics the real bank URL."
+        },
+        {
+          message: "Hey! Did you see the new season? It's so good lol. Let me know what you think!",
+          correct: "safe",
+          explanation: "Casual tone, contractions (lol), friendly. No urgency or requests for info."
+        },
+        {
+          message: "The implementation of cybersecurity protocols necessitates adherence to established frameworks. Organizations should evaluate defensive mechanisms.",
+          correct: "scam",
+          explanation: "Over-formal language, no contractions, generic business jargon. Common in AI-generated phishing."
+        },
+        {
+          message: "Quick question—can you help me understand the deadline for our project? No rush!",
+          correct: "safe",
+          explanation: "Conversational, polite, genuine question. No urgency or suspicious requests."
+        },
+        {
+          message: "URGENT: Your account has been LOCKED. VERIFY NOW or lose access: emergency-verify.net/confirm?id=12345",
+          correct: "scam",
+          explanation: "All caps, urgency, fake authority, suspicious URL with query params, emotional pressure."
+        },
+        {
+          message: "As an AI language model, I must note that password security is important. You should update your credentials monthly.",
+          correct: "scam",
+          explanation: "AI red flags: 'as an AI', 'I must note'. Tries to establish authority falsely."
+        },
+        {
+          message: "The company's Q4 earnings report shows a 15% increase. Thought you'd want to know!",
+          correct: "safe",
+          explanation: "Informative, no urgency, no requests for sensitive info, natural tone."
+        }
+      ];
+
+      let currentIndex = 0;
+      let correctAnswers = 0;
+
+      function renderScenario() {
+        if (currentIndex >= scenarios.length) {
+          document.getElementById('practiceContainer').classList.add('hidden');
+          const stats = document.getElementById('practiceStats');
+          stats.classList.remove('hidden');
+          document.getElementById('correctCount').textContent = correctAnswers;
+          document.getElementById('totalCount').textContent = scenarios.length;
+          return;
+        }
+
+        const scenario = scenarios[currentIndex];
+        const html = `
+          <div class="scenario-card">
+            <div class="scenario-message">"${scenario.message}"</div>
+            <div class="scenario-buttons">
+              <button onclick="answerScenario('safe')" class="btn btn-small">✅ Safe</button>
+              <button onclick="answerScenario('suspicious')" class="btn btn-small">⚠️ Suspicious</button>
+              <button onclick="answerScenario('scam')" class="btn btn-small">🚩 Scam</button>
+            </div>
+            <div id="feedback" class="hidden"></div>
+          </div>
+        `;
+        document.getElementById('practiceContainer').innerHTML = html;
+      }
+
+      function answerScenario(answer) {
+        const scenario = scenarios[currentIndex];
+        const feedback = document.getElementById('feedback');
+        const isCorrect = answer === scenario.correct;
+        
+        if (isCorrect) correctAnswers++;
+
+        const verdictText = answer === 'safe' ? '✅ Safe' : answer === 'suspicious' ? '⚠️ Suspicious' : '🚩 Scam';
+        const correctText = scenario.correct === 'safe' ? '✅ Safe' : scenario.correct === 'suspicious' ? '⚠️ Suspicious' : '🚩 Scam';
+
+        feedback.innerHTML = `
+          <p style="color:${isCorrect ? '#2ecc71' : '#e74c3c'};font-weight:bold">
+            ${isCorrect ? '✓ Correct!' : '✗ Incorrect'}
+          </p>
+          <p><strong>Correct answer:</strong> ${correctText}</p>
+          <p><strong>Why:</strong> ${scenario.explanation}</p>
+          <button onclick="nextScenario()" class="btn btn-primary" style="margin-top:12px">Next</button>
+        `;
+        feedback.classList.remove('hidden');
+        document.querySelectorAll('.scenario-buttons button').forEach(btn => btn.disabled = true);
+      }
+
+      function nextScenario() {
+        currentIndex++;
+        renderScenario();
+      }
+
+      renderScenario();
+    </script>
+  </body>
+</html>
