@@ -34,11 +34,16 @@ body {
 
 /* ============ Navigation ============ */
 .navbar {
-    background: var(--primary);
+    background: linear-gradient(135deg, #4a5fc1, #6d77e0);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 -1rem;
+    padding: 0 1rem;
 }
 
 .nav-container {
@@ -56,6 +61,11 @@ body {
     color: white;
     text-decoration: none;
     margin: 0;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    background: none;
+    -webkit-background-clip: revert;
+    -webkit-text-fill-color: revert;
+    background-clip: revert;
 }
 
 .nav-links {
