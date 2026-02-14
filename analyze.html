@@ -20,20 +20,33 @@
     </nav>
 
     <main class="container analyze-page">
-      <h2>Analyze a Message</h2>
-      <p class="subtitle">Paste an email, DM, text, or social media message to see what makes it risky.</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem">
+        <h2 style="margin:0">Analyze Content</h2>
+        <div class="analysis-mode-toggle">
+          <button id="modeMessage" class="mode-btn active" data-mode="message">📧 Message</button>
+          <button id="modeWebsite" class="mode-btn" data-mode="website">🌐 Website</button>
+        </div>
+      </div>
 
       <!-- Input Panel -->
       <section class="input-panel">
-        <label for="message">Your Message</label>
-        <textarea id="message" rows="10" placeholder="Paste an email, text, DM, or social media message here..." aria-describedby="messageHint"></textarea>
-        <p id="messageHint" style="font-size:12px;color:#666;margin-top:8px">Tip: Try pasting suspicious messages from your email spam folder or a phishing email you received.</p>
+        <div id="messageMode" class="analysis-mode">
+          <label for="message">Your Message</label>
+          <textarea id="message" rows="10" placeholder="Paste an email, text, DM, or social media message here..." aria-describedby="messageHint"></textarea>
+          <p id="messageHint" style="font-size:12px;color:#666;margin-top:8px">Tip: Try pasting suspicious messages from your email spam folder or a phishing email you received.</p>
+        </div>
+
+        <div id="websiteMode" class="analysis-mode hidden">
+          <label for="websiteInput">Website URL or HTML</label>
+          <textarea id="websiteInput" rows="5" placeholder="Paste a website URL (e.g., https://example.com) or paste the HTML source code..." aria-describedby="websiteHint"></textarea>
+          <p id="websiteHint" style="font-size:12px;color:#666;margin-top:8px">Tip: Enter a suspicious website URL or paste its HTML source to analyze for scam indicators.</p>
+        </div>
 
         <div class="input-controls">
-          <button id="analyzeBtn" class="btn btn-primary" aria-label="Analyze the message for scams and AI">Analyze Message</button>
+          <button id="analyzeBtn" class="btn btn-primary" aria-label="Analyze the message for scams and AI">Analyze</button>
           <button id="clearBtn" class="btn btn-secondary">Clear</button>
-          <label for="exampleSelect" style="margin-left:auto">Try an example:</label>
-          <select id="exampleSelect">
+          <label for="exampleSelect" style="margin-left:auto;display:none" id="exampleLabel">Try an example:</label>
+          <select id="exampleSelect" style="display:none">
             <option value="">-- Choose an example --</option>
             <option value="scam">Phishing Scam</option>
             <option value="ai-chatgpt">AI-Generated (ChatGPT)</option>
@@ -56,14 +69,14 @@
         <!-- Score Meters -->
         <div class="score-section">
           <div class="score-meter">
-            <p><strong>Scam Risk Score</strong></p>
+            <p><strong id="scoreLabel">Scam Risk Score</strong></p>
             <div class="meter" aria-label="Scam risk meter">
               <div id="meterFill" class="meter-fill" style="background:linear-gradient(90deg,#2ecc71,#f1c40f,#e74c3c)"></div>
             </div>
             <p id="scamScore" class="score-label">0/10</p>
           </div>
 
-          <div class="score-meter">
+          <div class="score-meter" id="aiMeterContainer">
             <p><strong>AI Likelihood Score</strong></p>
             <div class="meter" aria-label="AI likelihood meter">
               <div id="aiMeterFill" class="meter-fill" style="background:linear-gradient(90deg,#3498db,#9b59b6)"></div>
