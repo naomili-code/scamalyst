@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>About & Ethics — ScamSensei</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -15,6 +16,7 @@
           <li><a href="analyze.html">Analyze</a></li>
           <li><a href="practice.html">Practice</a></li>
           <li><a href="about.html" class="active">About & Ethics</a></li>
+          <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle dark mode">🌙</button>
         </ul>
       </div>
     </nav>
@@ -117,5 +119,13 @@
       <p>&copy; 2026 ScamSensei | Made for the Girls Who Code Challenge</p>
       <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
     </footer>
+
+    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleFABMenu();" title="Get help with scam detection">❓</button>
+    <div class="fab-menu" id="fabMenu">
+      <a href="#" onclick="showHelp('scam'); closeFABMenu(); return false;">🚩 Common Scam Types</a>
+      <a href="#" onclick="showHelp('ai'); closeFABMenu(); return false;">🤖 AI Detection Tips</a>
+      <a href="#" onclick="showHelp('url'); closeFABMenu(); return false;">🔗 Website Analysis</a>
+      <a href="analyze.html" onclick="closeFABMenu()">🔍 Analyze Now</a>
+    </div>
   </body>
 </html>

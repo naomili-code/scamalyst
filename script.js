@@ -1,82 +1,96 @@
-const analyzeBtn = document.getElementById('analyzeBtn');
-const examplesBtn = document.getElementById('examplesBtn');
-const messageEl = document.getElementById('message');
-const websiteEl = document.getElementById('websiteInput');
-const resultEl = document.getElementById('result');
-const verdictEl = document.getElementById('verdict');
-const reasonsEl = document.getElementById('reasons');
-const meterFill = document.getElementById('meterFill');
-const aiMeterFill = document.getElementById('aiMeterFill');
+// Global element references (populated when DOM is ready)
+let analyzeBtn, messageEl, websiteEl, resultEl, reasonsEl, meterFill, aiMeterFill;
 
 let currentMode = 'message'; // Track current analysis mode
 
-// Mode toggle
-const modeMessageBtn = document.getElementById('modeMessage');
-const modeWebsiteBtn = document.getElementById('modeWebsite');
-const messageMode = document.getElementById('messageMode');
-const websiteMode = document.getElementById('websiteMode');
-const exampleLabel = document.getElementById('exampleLabel');
-const exampleSelect = document.getElementById('exampleSelect');
-const aiMeterContainer = document.getElementById('aiMeterContainer');
-
-if(modeMessageBtn && modeWebsiteBtn) {
-  modeMessageBtn.addEventListener('click', () => {
-    currentMode = 'message';
-    messageMode.classList.remove('hidden');
-    websiteMode.classList.add('hidden');
-    modeMessageBtn.classList.add('active');
-    modeWebsiteBtn.classList.remove('active');
-    exampleLabel.style.display = 'inline-block';
-    exampleSelect.style.display = 'inline-block';
-    if(aiMeterContainer) aiMeterContainer.style.display = 'block';
-    // Clear previous results
-    if(resultEl) resultEl.classList.add('hidden');
-    if(reasonsEl) reasonsEl.innerHTML = '';
-  });
+// Wait for DOM to be ready before accessing elements
+function initModeToggle() {
+  // Populate global element references
+  messageEl = document.getElementById('message');
+  websiteEl = document.getElementById('websiteInput');
+  resultEl = document.getElementById('result');
+  reasonsEl = document.getElementById('reasons');
+  meterFill = document.getElementById('meterFill');
+  aiMeterFill = document.getElementById('aiMeterFill');
   
-  modeWebsiteBtn.addEventListener('click', () => {
-    currentMode = 'website';
-    messageMode.classList.add('hidden');
-    websiteMode.classList.remove('hidden');
-    modeMessageBtn.classList.remove('active');
-    modeWebsiteBtn.classList.add('active');
-    exampleLabel.style.display = 'none';
-    exampleSelect.style.display = 'none';
-    if(aiMeterContainer) aiMeterContainer.style.display = 'none';
-    // Clear previous results
-    if(resultEl) resultEl.classList.add('hidden');
-    if(reasonsEl) reasonsEl.innerHTML = '';
-  });
+  const modeMessageBtn = document.getElementById('modeMessage');
+  const modeWebsiteBtn = document.getElementById('modeWebsite');
+  const messageMode = document.getElementById('messageMode');
+  const websiteMode = document.getElementById('websiteMode');
+  const exampleLabel = document.getElementById('exampleLabel');
+  const exampleSelect = document.getElementById('exampleSelect');
+  const aiMeterContainer = document.getElementById('aiMeterContainer');
+
+  if(modeMessageBtn && modeWebsiteBtn) {
+    modeMessageBtn.addEventListener('click', () => {
+      currentMode = 'message';
+      messageMode.classList.remove('hidden');
+      websiteMode.classList.add('hidden');
+      modeMessageBtn.classList.add('active');
+      modeWebsiteBtn.classList.remove('active');
+      exampleLabel.style.display = 'inline-block';
+      exampleSelect.style.display = 'inline-block';
+      if(aiMeterContainer) aiMeterContainer.style.display = 'block';
+      // Clear previous results
+      if(resultEl) resultEl.classList.add('hidden');
+      if(reasonsEl) reasonsEl.innerHTML = '';
+    });
+    
+    modeWebsiteBtn.addEventListener('click', () => {
+      currentMode = 'website';
+      messageMode.classList.add('hidden');
+      websiteMode.classList.remove('hidden');
+      modeMessageBtn.classList.remove('active');
+      modeWebsiteBtn.classList.add('active');
+      exampleLabel.style.display = 'none';
+      exampleSelect.style.display = 'none';
+      if(aiMeterContainer) aiMeterContainer.style.display = 'none';
+      // Clear previous results
+      if(resultEl) resultEl.classList.add('hidden');
+      if(reasonsEl) reasonsEl.innerHTML = '';
+    });
+  }
 }
 
-const urgencyWords = ['urgent','immediately','act now','final notice','asap','verify now','last chance','limited time'];
-const personalRequests = ['password','ssn','social security','bank account','verify your account','card number','cvv','pin'];
-
-// Only set up event listeners if elements exist (on analyze page)
-if(analyzeBtn) {
-  analyzeBtn.addEventListener('click', () => {
-    if(currentMode === 'message') {
-      const text = messageEl.value;
-      if(!text.trim()) {
-        alert('Please paste a message to analyze.');
-        return;
-      }
-      const scamRes = analyzeMessage(text);
-      const aiRes = detectAI(text);
-      renderMessageResult(scamRes, aiRes);
-    } else if(currentMode === 'website') {
-      const input = websiteEl.value;
-      if(!input.trim()) {
-        alert('Please enter a website URL or HTML to analyze.');
-        return;
-      }
-      const websiteRes = analyzeWebsite(input);
-      renderWebsiteResult(websiteRes);
-    }
-  });
+// Initialize when DOM is ready
+function initAllListeners() {
+  initModeToggle();
+  initButtonListeners();
 }
 
-if(examplesBtn || document.getElementById('exampleSelect')) {
+if(document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAllListeners);
+} else {
+  initAllListeners();
+}
+
+// Initialize button event listeners when DOM is ready
+function initButtonListeners() {
+  analyzeBtn = document.getElementById('analyzeBtn');
+  
+  if(analyzeBtn) {
+    analyzeBtn.addEventListener('click', () => {
+      if(currentMode === 'message') {
+        const text = messageEl.value;
+        if(!text.trim()) {
+          alert('Please paste a message to analyze.');
+          return;
+        }
+        const scamRes = analyzeMessage(text);
+        const aiRes = detectAI(text);
+        renderMessageResult(scamRes, aiRes);
+      } else if(currentMode === 'website') {
+        const input = websiteEl.value;
+        if(!input.trim()) {
+          alert('Please enter a website URL or HTML to analyze.');
+          return;
+        }
+        const websiteRes = analyzeWebsite(input);
+        renderWebsiteResult(websiteRes);
+      }
+    });
+  }
+
   const selectEl = document.getElementById('exampleSelect');
   if(selectEl) {
     selectEl.addEventListener('change', (e) => {
@@ -85,19 +99,36 @@ if(examplesBtn || document.getElementById('exampleSelect')) {
       }
     });
   }
-}
 
-// Clear button handler
-const clearBtn = document.getElementById('clearBtn');
-if(clearBtn) {
-  clearBtn.addEventListener('click', () => {
-    if(currentMode === 'message' && messageEl) {
-      messageEl.value = '';
-    } else if(currentMode === 'website' && websiteEl) {
-      websiteEl.value = '';
+  const clearBtn = document.getElementById('clearBtn');
+  if(clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if(currentMode === 'message' && messageEl) {
+        messageEl.value = '';
+      } else if(currentMode === 'website' && websiteEl) {
+        websiteEl.value = '';
+      }
+      if(resultEl) resultEl.classList.add('hidden');
+    });
+  }
+
+  // Dark mode toggle - set up when DOM is ready
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  if(darkModeToggle) {
+    // Check if dark mode was previously selected
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    if(savedDarkMode) {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.textContent = '☀️';
     }
-    if(resultEl) resultEl.classList.add('hidden');
-  });
+    
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+      darkModeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+    });
+  }
 }
 
 function analyzeMessage(text){
@@ -153,43 +184,84 @@ function renderMessageResult(scamRes, aiRes){
   
   resultEl.classList.remove('hidden');
   
-  // Scam detection section
-  verdictEl.innerHTML = `<strong>Scam Risk:</strong> ${scamRes.verdict}<br/><strong>AI Likelihood:</strong> ${aiRes.verdict}`;
-  verdictEl.setAttribute('role', 'status');
-  
   reasonsEl.innerHTML = '';
   
-  // Add scam detection reasons
+  // Add threat category icons to reasons
   scamRes.reasons.forEach((r, idx) => { 
     const li = document.createElement('li'); 
-    li.innerHTML = `<strong>Scam Risk:</strong> ${r}`;
+    const icon = getThreatIcon('Scam');
+    li.innerHTML = `${icon} <strong>Scam Risk:</strong> ${r}`;
     li.style.animationDelay = (idx * 0.1) + 's';
     li.style.animation = 'slideIn 0.4s ease-out both';
     reasonsEl.appendChild(li); 
   });
   
-  // Add AI detection reasons
+  // Add AI detection reasons with icons
   aiRes.reasons.forEach((r, idx) => { 
     const li = document.createElement('li'); 
-    li.innerHTML = `<strong>AI Indicator:</strong> ${r}`;
+    const icon = getThreatIcon('AI');
+    li.innerHTML = `${icon} <strong>AI Indicator:</strong> ${r}`;
     li.style.animationDelay = ((scamRes.reasons.length + idx) * 0.1) + 's';
     li.style.animation = 'slideIn 0.4s ease-out both';
     reasonsEl.appendChild(li); 
   });
 
-  // Scam meter width (0-10 scale)
+  // Scam meter width (0-10 scale) with animation
   const scamPct = Math.min(100, Math.round((scamRes.score/10)*100));
-  meterFill.style.width = scamPct+'%';
+  
+  // Use setTimeout to ensure animation plays
+  setTimeout(() => {
+    meterFill.style.width = scamPct+'%';
+  }, 10);
   
   // AI meter width (0-1 scale converted to percentage)
   const aiPct = Math.min(100, Math.round(aiRes.score*100));
-  aiMeterFill.style.width = aiPct+'%';
+  setTimeout(() => {
+    aiMeterFill.style.width = aiPct+'%';
+  }, 10);
   
-  // Update score label
+  // Update score label with animated counter
   const scoreEl = document.getElementById('scamScore');
-  if(scoreEl) scoreEl.textContent = `${scamRes.score}/10`;
+  if(scoreEl) {
+    animateCounter(scoreEl, 0, Math.min(10, scamRes.score), '/10');
+  }
+  
   const aiScoreEl = document.getElementById('aiScore');
-  if(aiScoreEl) aiScoreEl.textContent = `${Math.round(aiRes.score*100)}%`;
+  if(aiScoreEl) {
+    animateCounter(aiScoreEl, 0, Math.round(aiRes.score*100), '%');
+  }
+  
+  // Add risk badge above red flags section
+  const redFlagsSection = document.querySelector('.red-flags-section');
+  if(redFlagsSection) {
+    let badgeHTML = renderRiskBadge(scamRes.score);
+    const existingBadge = redFlagsSection.querySelector('.risk-badge');
+    if(existingBadge) {
+      existingBadge.replaceWith(badgeHTML);
+    } else {
+      redFlagsSection.insertAdjacentHTML('afterbegin', badgeHTML);
+    }
+    
+    // Apply risk-based background color
+    redFlagsSection.classList.remove('risk-very-low', 'risk-low', 'risk-medium', 'risk-high', 'risk-very-high');
+    const score = scamRes.score;
+    if(score < 1) redFlagsSection.classList.add('risk-very-low');
+    else if(score < 3) redFlagsSection.classList.add('risk-low');
+    else if(score < 5) redFlagsSection.classList.add('risk-medium');
+    else if(score < 7) redFlagsSection.classList.add('risk-high');
+    else redFlagsSection.classList.add('risk-very-high');
+  }
+  
+  // Add threat breakdown chart
+  const chartHTML = createThreatChart([...scamRes.reasons.map(r => ({category: 'Scam'})), ...aiRes.reasons.map(r => ({category: 'AI'}))]);
+  if(chartHTML) {
+    const existingChart = resultEl.querySelector('.threat-chart-container');
+    if(existingChart) {
+      existingChart.replaceWith(chartHTML);
+    } else {
+      resultEl.insertAdjacentHTML('beforeend', chartHTML);
+    }
+  }
 }
 
 function renderWebsiteResult(websiteRes) {
@@ -197,29 +269,31 @@ function renderWebsiteResult(websiteRes) {
   
   resultEl.classList.remove('hidden');
   
-  // Update verdict
-  verdictEl.innerHTML = `<strong>Website Assessment:</strong> ${websiteRes.verdict}`;
-  verdictEl.setAttribute('role', 'status');
-  
   // Hide AI meter for website mode
   if(aiMeterContainer) aiMeterContainer.style.display = 'none';
-  
-  // Update scam meter
   const scoreLabel = document.getElementById('scoreLabel');
   if(scoreLabel) scoreLabel.textContent = 'Legitimacy Risk Score';
   
   const scamPct = Math.min(100, Math.round((websiteRes.score/10)*100));
-  meterFill.style.width = scamPct+'%';
   
+  // Animate meter with delay
+  setTimeout(() => {
+    meterFill.style.width = scamPct+'%';
+  }, 10);
+  
+  // Update score with animated counter
   const scoreEl = document.getElementById('scamScore');
-  if(scoreEl) scoreEl.textContent = `${websiteRes.score}/10`;
+  if(scoreEl) {
+    animateCounter(scoreEl, 0, Math.min(10, websiteRes.score), '/10');
+  }
   
-  // Display red flags
+  // Display red flags with threat icons
   reasonsEl.innerHTML = '';
   if(websiteRes.redFlags.length > 0) {
     websiteRes.redFlags.forEach((flag, idx)=>{ 
-      const li = document.createElement('li'); 
-      li.innerHTML = `<strong>${flag.category}:</strong> ${flag.message}`; 
+      const li = document.createElement('li');
+      const icon = getThreatIcon(flag.category);
+      li.innerHTML = `${icon} <strong>${flag.category}:</strong> ${flag.message}`; 
       li.style.animationDelay = (idx * 0.1) + 's';
       li.style.animation = 'slideIn 0.4s ease-out both';
       reasonsEl.appendChild(li); 
@@ -229,6 +303,38 @@ function renderWebsiteResult(websiteRes) {
     li.innerHTML = '<strong>✓ All Clear:</strong> No major red flags detected.';
     li.style.animation = 'slideIn 0.4s ease-out both';
     reasonsEl.appendChild(li);
+  }
+  
+  // Add risk badge
+  const redFlagsSection = document.querySelector('.red-flags-section');
+  if(redFlagsSection) {
+    let badgeHTML = renderRiskBadge(websiteRes.score);
+    const existingBadge = redFlagsSection.querySelector('.risk-badge');
+    if(existingBadge) {
+      existingBadge.replaceWith(badgeHTML);
+    } else {
+      redFlagsSection.insertAdjacentHTML('afterbegin', badgeHTML);
+    }
+    
+    // Apply risk-based background color to red-flags-section
+    redFlagsSection.classList.remove('risk-very-low', 'risk-low', 'risk-medium', 'risk-high', 'risk-very-high');
+    const score = websiteRes.score;
+    if(score < 1) redFlagsSection.classList.add('risk-very-low');
+    else if(score < 3) redFlagsSection.classList.add('risk-low');
+    else if(score < 5) redFlagsSection.classList.add('risk-medium');
+    else if(score < 7) redFlagsSection.classList.add('risk-high');
+    else redFlagsSection.classList.add('risk-very-high');
+  }
+  
+  // Add threat breakdown chart for website flags
+  const chartHTML = createThreatChart(websiteRes.redFlags);
+  if(chartHTML) {
+    const existingChart = resultEl.querySelector('.threat-chart-container');
+    if(existingChart) {
+      existingChart.replaceWith(chartHTML);
+    } else {
+      resultEl.insertAdjacentHTML('beforeend', chartHTML);
+    }
   }
 }
 
@@ -632,3 +738,177 @@ function levenshteinDistance(a, b) {
 }
 
 // No external model calls — purely rule-based analyzer
+
+// ============ Floating Action Button ============
+window.toggleFABMenu = function() {
+  const menu = document.getElementById('fabMenu');
+  console.log('Toggle FAB menu called');
+  if(menu) {
+    menu.classList.toggle('show');
+    console.log('Menu show class now:', menu.classList.contains('show'));
+  }
+};
+
+window.closeFABMenu = function() {
+  const menu = document.getElementById('fabMenu');
+  console.log('Close FAB menu called');
+  if(menu) {
+    menu.classList.remove('show');
+  }
+};
+
+// Close menu when clicking outside (with better checks)
+document.addEventListener('click', function(e) {
+  const fabBtn = document.getElementById('fabBtn');
+  const fabMenu = document.getElementById('fabMenu');
+  
+  // Only close if clicking outside both button and menu
+  if(fabMenu && fabMenu.classList.contains('show')) {
+    const isClickOnButton = fabBtn && (e.target === fabBtn || fabBtn.contains(e.target));
+    const isClickOnMenu = fabMenu.contains(e.target);
+    
+    if(!isClickOnButton && !isClickOnMenu) {
+      console.log('Closing menu - click was outside');
+      fabMenu.classList.remove('show');
+    }
+  }
+});
+
+// ============ Animated Number Counter ============
+function animateCounter(element, startValue, endValue, suffix = '') {
+  const duration = 1500;
+  const startTime = Date.now();
+  
+  function animate() {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    const easeOut = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(startValue + (endValue - startValue) * easeOut);
+    
+    element.textContent = current + suffix;
+    
+    if(progress < 1) {
+      requestAnimationFrame(animate);
+    }
+  }
+  
+  animate();
+}
+
+// ============ Render Progress Circle ============
+function renderProgressCircle(score, maxScore = 10) {
+  const radius = 45;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (score / maxScore) * circumference;
+  
+  const gradientId = `gradient-${Math.random()}`;
+  
+  return `<svg class="progress-circle" viewBox="0 0 120 120">
+    <defs>
+      <linearGradient id="${gradientId}" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#2ecc71;stop-opacity:1" />
+        <stop offset="50%" style="stop-color:#f1c40f;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <circle class="progress-circle-bg" cx="60" cy="60" r="${radius}"></circle>
+    <circle class="progress-circle-fill" cx="60" cy="60" r="${radius}" style="stroke-dashoffset: ${offset}"></circle>
+  </svg>`;
+}
+
+// ============ Threat Category Icons ============
+const threatIcons = {
+  'Scam': '🚨',
+  'AI': '🤖',
+  'Malware': '🦠',
+  'Phishing': '🎣',
+  'Hate Speech': '😤',
+  'Self-Harm': '⚠️',
+  'Misinformation': '❌',
+  'Privacy Breach': '🔓',
+  'Piracy': '🏴‍☠️',
+  'Predatory Risk': '🛑',
+  'Security Malpractice': '🔒',
+  'Payment': '💰',
+  'Credential Request': '🔑'
+};
+
+function getThreatIcon(category) {
+  return threatIcons[category] || '⚠️';
+}
+
+// ============ Render Risk Badge ============
+function renderRiskBadge(score, maxScore = 10) {
+  let level = 'very-low';
+  let text = 'VERY LOW RISK';
+  
+  const percentage = (score / maxScore) * 100;
+  if(percentage > 80) {
+    level = 'very-high';
+    text = 'VERY HIGH RISK';
+  } else if(percentage > 60) {
+    level = 'high';
+    text = 'HIGH RISK';
+  } else if(percentage > 40) {
+    level = 'medium';
+    text = 'MEDIUM RISK';
+  } else if(percentage > 20) {
+    level = 'low';
+    text = 'LOW RISK';
+  }
+  
+  return `<span class="risk-badge ${level}">${text}</span>`;
+}
+
+// ============ Help Function for FAB ============
+function showHelp(topic) {
+  const helps = {
+    scam: '🚨 COMMON SCAM INDICATORS\n\n• Urgent/threatening language ("ACT NOW", "LIMITED TIME")\n• Requests for passwords, SSN, or card numbers\n• Suspicious links or shortened URLs\n• Mentions of payment (gift cards, wire, crypto)\n• Impersonating banks, companies, or government\n• Grammar/spelling errors\n• Pressure to act in secret or immediately\n• Claims of unexpected money/prizes',
+    ai: '🤖 AI-GENERATED TEXT SIGNS\n\n• Repetitive sentence structure\n• Generic phrases ("I hope this finds you well")\n• Unusual word choices or overly formal tone\n• Few or no contractions ("do not" vs "don\'t")\n• Too many adjectives and descriptors\n• No personal details or specific references\n• Missing regional dialect or personality\n• Consistent, predictable punctuation',
+    url: '🔗 SUSPICIOUS WEBSITE RED FLAGS\n\n• Misspelled domain names ("micros0ft.com")\n• No HTTPS (no padlock icon)\n• Missing contact info or privacy policies\n• Low-quality images or poor design\n• "Too good to be true" pricing or deals\n• Only accepts crypto/gift cards/wire transfer\n• Domain recently created (weeks old)\n• Excessive pop-ups, redirects, or ads'
+  };
+  
+  const message = helps[topic] || 'For more help, visit Practice Mode or the About page.';
+  alert(message);
+  
+  // Close the FAB menu
+  const fabMenu = document.getElementById('fabMenu');
+  if(fabMenu) fabMenu.classList.remove('show');
+}
+
+// ============ Threat Breakdown Chart ============
+function createThreatChart(flags) {
+  if(!flags || flags.length === 0) return '';
+  
+  const categoryCounts = {};
+  flags.forEach(flag => {
+    const cat = flag.category || 'Other';
+    categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+  });
+  
+  const maxCount = Math.max(...Object.values(categoryCounts));
+  
+  let bars = '';
+  for(const [category, count] of Object.entries(categoryCounts)) {
+    const height = (count / maxCount) * 100;
+    bars += `
+      <div class="chart-bar" style="height: ${height}%; opacity: 0.7 + ${count / maxCount} * 0.3;">
+        <div class="chart-bar-value">${count}</div>
+        <div class="chart-bar-label">${category.substring(0, 8)}</div>
+      </div>
+    `;
+  }
+  
+  return `
+    <div class="threat-chart-container">
+      <div class="chart-title">📊 Threat Distribution</div>
+      <div class="chart-bars">${bars}</div>
+    </div>
+  `;
+}
+
+// ============ Tooltip Helper ============
+function createTooltip(text, tooltip) {
+  return `<span class="tooltip-trigger">${text}<span class="tooltip-text">${tooltip}</span></span>`;
+}

@@ -29,7 +29,8 @@ body {
                 url('16350941_rm309-aew-026-a.jpg') center/cover no-repeat fixed;
     color: var(--text);
     line-height: 1.6;
-    padding: 0 1rem;
+    padding: 0;
+    margin: 0;
 }
 
 /* ============ Navigation ============ */
@@ -40,10 +41,8 @@ body {
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     width: 100%;
-    left: 0;
-    right: 0;
-    margin: 0 -1rem;
-    padding: 0 1rem;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-container {
@@ -51,8 +50,30 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
+    padding-left: max(2rem, calc((100% - 1200px) / 2 + 2rem));
+    padding-right: max(2rem, calc((100% - 1200px) / 2 + 2rem));
+}
+
+/* Ensure nav items are vertically centered and have equal top/bottom spacing */
+.nav-links,
+.nav-links li {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a,
+.logo,
+.dark-mode-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    line-height: 1;
+}
+
+.nav-links a {
+    color: rgba(255,255,255,0.9);
 }
 
 .logo {
@@ -88,16 +109,24 @@ body {
 }
 
 /* ============ Container & Spacing ============ */
+main {
+    padding: 0 2rem;
+}
+
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 2rem;
+}
+
+.analyze-page {
+    margin-top: 2rem;
 }
 
 h1 {
     font-size: 2.5rem;
     margin: 0 0 1rem 0;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: linear-gradient(135deg, #556cd6, #9b59b6, #ff6b6b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -107,7 +136,7 @@ h1 {
 h2 {
     font-size: 1.8rem;
     margin: 2rem 0 1rem 0;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: linear-gradient(135deg, #556cd6, #9b59b6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -117,6 +146,10 @@ h2 {
 h3 {
     font-size: 1.2rem;
     margin: 1.5rem 0 0.8rem 0;
+    background: linear-gradient(90deg, #556cd6, #9b59b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .lead {
@@ -194,8 +227,6 @@ h3 {
         transform: translateX(0);
     }
 }
-
-/* ============ Cards & Grid ============ */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -212,6 +243,7 @@ h3 {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
 }
 
 .card::before {
@@ -226,8 +258,10 @@ h3 {
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 40px rgba(85, 108, 214, 0.15);
+    transform: translateY(-12px);
+    box-shadow: 0 20px 48px rgba(85, 108, 214, 0.2);
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .card:hover::before {
@@ -309,22 +343,22 @@ h3 {
 .input-section,
 .result-section {
     background: var(--card);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 10px;
     border: 1px solid var(--border);
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin: 2rem 0;
+    margin: 1.5rem 0;
 }
 
 textarea {
     width: 100%;
-    padding: 1rem;
+    padding: 0.8rem;
     border: 2px solid var(--border);
-    border-radius: 10px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
     font-family: 'Courier New', monospace;
     resize: vertical;
-    min-height: 120px;
+    min-height: 100px;
     line-height: 1.5;
     transition: all 0.3s ease;
     background: white;
@@ -338,16 +372,16 @@ textarea:focus {
 
 .controls {
     display: flex;
-    gap: 1rem;
-    margin: 1.5rem 0 0 0;
+    gap: 0.8rem;
+    margin: 1rem 0 0 0;
     flex-wrap: wrap;
 }
 
 select {
-    padding: 0.75rem;
+    padding: 0.6rem 0.8rem;
     border: 2px solid var(--border);
-    border-radius: 8px;
-    font-size: 0.95rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
     background: white;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -363,12 +397,46 @@ button {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    padding: 0.65rem 1.3rem;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(85, 108, 214, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    transition: left 0.3s ease;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.input-controls {
+    display: flex;
+    gap: 0.8rem;
+    margin: 1rem 0 0 0;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 button:hover {
@@ -382,6 +450,21 @@ button:active {
 }
 
 /* ============ Results Display ============ */
+.result-panel {
+    animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .verdict {
     font-size: 1.3rem;
     font-weight: 600;
@@ -415,9 +498,15 @@ button:active {
     height: 100%;
     width: 0%;
     background: linear-gradient(90deg, var(--good), var(--warn), var(--bad));
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(85, 108, 214, 0.3);
+    box-shadow: 0 0 15px rgba(85, 108, 214, 0.4);
+    animation: meterShimmer 2.5s infinite;
+}
+
+@keyframes meterShimmer {
+    0%, 100% { box-shadow: 0 0 15px rgba(85, 108, 214, 0.4); }
+    50% { box-shadow: 0 0 25px rgba(85, 108, 214, 0.6); }
 }
 
 .red-flags {
@@ -443,21 +532,44 @@ button:active {
 
 /* Red Flags Section Styling */
 .red-flags-section {
-    background: linear-gradient(135deg, rgba(231, 76, 60, 0.08), rgba(230, 126, 34, 0.08));
-    border: 2px solid rgba(231, 76, 60, 0.3);
     border-radius: 12px;
-    padding: 2rem;
-    margin: 2rem 0;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border: 2px solid rgba(231, 76, 60, 0.3);
     box-shadow: 0 4px 12px rgba(231, 76, 60, 0.1);
+    transition: all 0.4s ease;
+}
+
+.red-flags-section.risk-very-low {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.12), rgba(46, 204, 113, 0.06));
+    border-color: rgba(46, 204, 113, 0.4);
+}
+
+.red-flags-section.risk-low {
+    background: linear-gradient(135deg, rgba(241, 196, 15, 0.12), rgba(46, 204, 113, 0.06));
+    border-color: rgba(241, 196, 15, 0.4);
+}
+
+.red-flags-section.risk-medium {
+    background: linear-gradient(135deg, rgba(241, 196, 15, 0.12), rgba(241, 196, 15, 0.08));
+    border-color: rgba(241, 196, 15, 0.4);
+}
+
+.red-flags-section.risk-high {
+    background: linear-gradient(135deg, rgba(230, 126, 34, 0.12), rgba(241, 196, 15, 0.06));
+    border-color: rgba(230, 126, 34, 0.4);
+}
+
+.red-flags-section.risk-very-high {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.12), rgba(230, 126, 34, 0.08));
+    border-color: rgba(231, 76, 60, 0.4);
 }
 
 .red-flags-section h4 {
-    color: var(--bad);
-    font-size: 1.2rem;
-    margin: 0 0 1.5rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    color: var(--text);
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
 }
 
 .red-flags-list {
@@ -466,67 +578,40 @@ button:active {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
 .red-flags-list li {
     background: white;
-    padding: 1.2rem;
-    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    padding-left: 2.5rem;
+    border-radius: 6px;
     border-left: 4px solid var(--bad);
-    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin: 0;
     position: relative;
-    padding-left: 1.5rem;
+    font-size: 0.95rem;
 }
 
 .red-flags-list li:hover {
-    transform: translateX(6px);
-    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.25);
-    border-left-color: var(--accent);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.15);
 }
 
 .red-flags-list li strong {
     color: var(--bad);
-    display: block;
-    margin-bottom: 0.4rem;
     font-weight: 600;
+    margin-right: 0.3rem;
 }
 
 .red-flags-list li::before {
     content: '⚠️';
     position: absolute;
-    left: 1rem;
+    left: 0.7rem;
     font-size: 1rem;
-}
-
-.red-flags-list li strong::before {
-    content: '';
-}
-
-/* Verdict Section Styling */
-.verdict-section {
-    background: linear-gradient(135deg, rgba(85, 108, 214, 0.1), rgba(155, 89, 182, 0.1));
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border-left: 6px solid var(--primary);
-    box-shadow: 0 4px 12px rgba(85, 108, 214, 0.15);
-}
-
-.verdict-section h3 {
-    margin: 0 0 0.8rem 0;
-    font-size: 1.3rem;
-    color: var(--primary);
-    line-height: 1.5;
-}
-
-.verdict-explanation {
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0.5rem 0 0 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .teaching-points {
@@ -716,6 +801,8 @@ footer {
     color: white;
     padding: 2rem;
     margin-top: 4rem;
+    margin-left: 0;
+    margin-right: 0;
     text-align: center;
     border-top: 2px solid var(--primary);
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.1);
@@ -741,6 +828,684 @@ footer a {
 footer a:hover {
     border-bottom-color: var(--primary);
     color: var(--primary);
+}
+
+/* ============ Risk Badge ============ */
+.risk-badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+.risk-badge.very-low {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.risk-badge.low {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.risk-badge.medium {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.risk-badge.high {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.risk-badge.very-high {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ============ Dark Mode ============ */
+body.dark-mode {
+    --bg: #0f1113;
+    --card: #1f2224;
+    --text: #f3f4f6;
+    --muted: #b0b3b6;
+    --border: rgba(255,255,255,0.06);
+    background: linear-gradient(135deg, rgba(15,15,15,0.8), rgba(30,30,30,0.8)),
+                url('16350941_rm309-aew-026-a.jpg') center/cover no-repeat fixed;
+    color: var(--text);
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
+    color: #ffffff;
+}
+
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
+    color: var(--text);
+}
+
+body.dark-mode p, body.dark-mode span, body.dark-mode li, body.dark-mode td {
+    color: var(--text);
+}
+
+body.dark-mode a {
+    color: #7bb8ff;
+}
+
+body.dark-mode a:hover {
+    color: #a8d5ff;
+}
+
+body.dark-mode label {
+    color: var(--text);
+}
+
+/* make form controls slightly lighter and reduce heavy blur */
+body.dark-mode textarea,
+body.dark-mode input[type="text"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="password"],
+body.dark-mode input[type="number"],
+body.dark-mode select {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    color: var(--text);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(4px);
+}
+
+body.dark-mode textarea:focus,
+body.dark-mode input:focus,
+body.dark-mode select:focus {
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(85, 108, 214, 0.15);
+}
+
+body.dark-mode input::placeholder {
+    color: var(--muted);
+}
+
+body.dark-mode button {
+    filter: none;
+}
+
+/* make list items and panels less 'floating dark boxes' and more subtle */
+body.dark-mode .red-flags-list li {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid var(--border);
+    color: var(--text);
+    backdrop-filter: blur(4px);
+}
+
+body.dark-mode .input-section,
+body.dark-mode .result-section,
+body.dark-mode .input-panel,
+body.dark-mode .result-panel,
+body.dark-mode .card,
+body.dark-mode .score-meter,
+body.dark-mode .score-section {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    border: 1px solid var(--border);
+    color: var(--text);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+}
+
+body.dark-mode .navbar {
+    background: rgba(16,16,16,0.85);
+    border-color: var(--border);
+    backdrop-filter: blur(6px);
+}
+
+body.dark-mode footer {
+    background: rgba(14,14,14,0.85);
+    color: var(--text);
+    border-color: var(--border);
+    backdrop-filter: blur(6px);
+}
+
+body.dark-mode .container {
+    color: var(--text);
+}
+
+/* Ensure Message / Website toggle buttons are readable in dark mode */
+body.dark-mode .mode-btn {
+    background: rgba(255,255,255,0.03) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+}
+
+body.dark-mode .mode-btn:hover {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+body.dark-mode .mode-btn.active {
+    background: linear-gradient(135deg, rgba(85,108,214,0.95), rgba(155,89,182,0.95)) !important;
+    color: white !important;
+    border-color: rgba(85,108,214,0.6) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6) !important;
+}
+
+/* Home page: ensure all card-like elements switch from white to dark card backgrounds */
+body.dark-mode .card,
+body.dark-mode .example-card,
+body.dark-mode .guide-card,
+body.dark-mode .example-body,
+body.dark-mode .example-message,
+body.dark-mode .analysis-item,
+body.dark-mode .teaching-points,
+body.dark-mode .guide-card ul,
+body.dark-mode .protects,
+body.dark-mode .examples-section,
+body.dark-mode .website-red-flags,
+body.dark-mode .guide-card {
+    background: var(--card) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6) !important;
+}
+
+/* Specific list items that were white */
+body.dark-mode .red-flags-list li,
+body.dark-mode .example-analysis .analysis-item {
+    background: var(--card) !important;
+    color: var(--text) !important;
+    box-shadow: none !important;
+    border-left-color: rgba(231,76,60,0.22) !important;
+}
+
+/* Teaching points and disclaimers */
+body.dark-mode .teaching-points {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)) !important;
+    border-left: 4px solid var(--primary) !important;
+    color: var(--text) !important;
+}
+
+/* keep card hover subtle in dark mode (avoid bright white flash) */
+body.dark-mode .card::before {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+}
+
+body.dark-mode .card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.6);
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
+    backdrop-filter: blur(6px);
+}
+
+/* Analyze-specific dark-mode tweaks: make panels match the page background (transparent) */
+body.dark-mode .input-panel,
+body.dark-mode .result-panel,
+body.dark-mode .red-flags-section {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text) !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+/* Ensure all internal parts of the analyze input panel use the same background so there
+   are no visible stacked boxes of different dark tones. */
+body.dark-mode .input-panel > *,
+body.dark-mode .input-panel .input-controls,
+body.dark-mode .input-panel label,
+body.dark-mode .input-panel p {
+    background: transparent !important;
+    color: var(--text) !important;
+    border: none !important;
+}
+
+/* Make the textarea visually match the panel (no near-black inner box) */
+body.dark-mode .input-panel textarea,
+body.dark-mode textarea {
+    /* slightly lighter panel-matched background for the message box */
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04)) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    color: var(--text) !important;
+    box-shadow: none !important;
+    border-radius: 8px;
+}
+
+/* placeholder color slightly muted but readable */
+body.dark-mode textarea::placeholder {
+    color: rgba(255,255,255,0.60) !important;
+}
+
+/* labels and main paragraphs should be clearly readable */
+body.dark-mode .input-panel p,
+body.dark-mode .input-panel label,
+body.dark-mode .result-panel p {
+    color: var(--text) !important;
+}
+
+/* hints should be slightly muted but still readable (overrides inline color:#666) */
+body.dark-mode #messageHint,
+body.dark-mode #websiteHint {
+    color: var(--muted) !important;
+    font-size: 12px;
+}
+
+/* remove bright meter glow in dark mode and keep flat fill */
+body.dark-mode .meter-fill {
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+/* score meter box matches other panels to avoid two-tone boxes */
+body.dark-mode .score-meter {
+    background: linear-gradient(180deg, rgba(4,6,8,0.36), rgba(4,6,8,0.26)) !important;
+    border: 1px solid rgba(255,255,255,0.04) !important;
+    padding: 0.6rem;
+    border-radius: 8px;
+}
+
+body.dark-mode .score-section .score-label {
+    color: var(--text) !important;
+    font-weight: 700;
+}
+
+/* make each red-flag item match the panel tone but with contrast for the left bar */
+body.dark-mode .red-flags-list li {
+    background: linear-gradient(180deg, rgba(4,6,8,0.38), rgba(4,6,8,0.28)) !important;
+    border-left: 4px solid rgba(231,76,60,0.28) !important;
+}
+
+
+
+/*Dark Mode Toggle Button */
+.dark-mode-toggle {
+    padding: 0.4rem 0.8rem;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+}
+
+.dark-mode-toggle:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+}
+
+/* ============ Floating Action Button ============ */
+.fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(85, 108, 214, 0.4);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fab:hover {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 12px 36px rgba(85, 108, 214, 0.6);
+}
+
+.fab-menu {
+    position: fixed;
+    bottom: 6rem;
+    right: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+    padding: 1rem;
+    min-width: 220px;
+    z-index: 998;
+    animation: slideUp 0.3s ease-out;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.fab-menu.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fab-menu a {
+    display: block;
+    padding: 0.8rem 1rem;
+    color: var(--primary);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.fab-menu a:hover {
+    background: linear-gradient(135deg, rgba(85,108,214,0.1), rgba(155,89,182,0.1));
+    border-color: var(--primary);
+    transform: translateX(4px);
+}
+
+/* ============ Progress Circle ============ */
+.progress-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-circle svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.progress-circle-bg {
+    fill: none;
+    stroke: #f0f0f0;
+    stroke-width: 8;
+}
+
+.progress-circle-fill {
+    fill: none;
+    stroke: url(#gradient);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 282.6;
+    stroke-dashoffset: 282.6;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: pulseCircle 2s ease-in-out infinite;
+}
+
+@keyframes pulseCircle {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(85, 108, 214, 0.3)); }
+    50% { filter: drop-shadow(0 0 16px rgba(85, 108, 214, 0.5)); }
+}
+
+.progress-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.progress-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+}
+
+/* ============ Threat Category Icons ============ */
+.threat-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 24px;
+    text-align: center;
+}
+
+.threat-icon.scam { color: #e74c3c; }
+.threat-icon.ai { color: #9b59b6; }
+.threat-icon.malware { color: #c0392b; }
+.threat-icon.phishing { color: #d35400; }
+.threat-icon.hate { color: #8b0000; }
+.threat-icon.selfharm { color: #2c3e50; }
+.threat-icon.misinformation { color: #f39c12; }
+.threat-icon.privacy { color: #16a085; }
+.threat-icon.piracy { color: #8e44ad; }
+.threat-icon.predatory { color: #c0392b; }
+.threat-icon.security { color: #e67e22; }
+
+/* ============ Chart Container ============ */
+.threat-chart-container {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    margin: 2rem 0;
+    border: 1px solid var(--border);
+}
+
+.chart-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    height: 200px;
+    padding: 1rem 0;
+}
+
+.chart-bar {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 8px 8px 0 0;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    min-height: 20px;
+}
+
+.chart-bar:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(85, 108, 214, 0.3);
+}
+
+.chart-bar-label {
+    position: absolute;
+    bottom: -1.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--text);
+}
+
+.chart-bar-value {
+    position: absolute;
+    top: -1.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+/* ============ Tooltips ============ */
+.tooltip-trigger {
+    position: relative;
+    cursor: help;
+    border-bottom: 2px dotted var(--primary);
+    transition: all 0.3s ease;
+}
+
+.tooltip-trigger:hover {
+    color: var(--primary);
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1001;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(85, 108, 214, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--primary);
+}
+
+.tooltip-trigger:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ============ Animated Counter ============ */
+.counter {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--primary);
+    display: inline-block;
+}
+
+.counter-label {
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ============ Example Cards ============ */
+.examples-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(85,108,214,0.05), rgba(155,89,182,0.05));
+    border-radius: 12px;
+    border: 1px solid rgba(85,108,214,0.2);
+}
+
+.example-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.example-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--border);
+}
+
+.example-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(85, 108, 214, 0.2);
+}
+
+.example-header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+}
+
+.example-type {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 0.3rem;
+}
+
+.example-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+.example-body {
+    padding: 1.5rem;
+}
+
+.example-message {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid var(--warn);
+    font-style: italic;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.example-analysis {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.analysis-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    background: #fafafa;
+    border-radius: 6px;
+    font-size: 0.9rem;
 }
 
 /* ============ Utility Classes ============ */
@@ -860,19 +1625,19 @@ footer a:hover {
 /* ============ Mode Toggle ============ */
 .analysis-mode-toggle {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.4rem;
 }
 
 .mode-btn {
-    padding: 0.6rem 1.2rem;
+    padding: 0.55rem 1rem;
     border: 2px solid var(--border);
     background: white;
     color: var(--text);
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s ease;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
 }
 
 .mode-btn:hover {
@@ -948,8 +1713,8 @@ footer a:hover {
     }
 
     button {
-        padding: 0.6rem 1rem;
-        font-size: 0.95rem;
+        padding: 0.55rem 1rem;
+        font-size: 0.85rem;
     }
 
     .scenario-buttons {
@@ -961,8 +1726,8 @@ footer a:hover {
     }
 
     textarea {
-        min-height: 100px;
-        padding: 0.8rem;
+        min-height: 80px;
+        padding: 0.6rem;
     }
 
     footer {
@@ -1004,5 +1769,39 @@ footer a:hover {
     button {
         padding: 0.5rem 0.8rem;
         font-size: 0.9rem;
+    }
+
+    .fab {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .fab-menu {
+        right: 1.5rem;
+        bottom: 5.5rem;
+    }
+
+    .progress-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .progress-value {
+        font-size: 1.5rem;
+    }
+
+    .progress-label {
+        font-size: 0.7rem;
+    }
+
+    .chart-bar-label {
+        font-size: 0.7rem;
+    }
+
+    .chart-bar-value {
+        font-size: 0.8rem;
     }
 }

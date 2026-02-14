@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>ScamSensei — Learn to Spot Scams Before They Spot You</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -15,6 +16,7 @@
           <li><a href="analyze.html">Analyze</a></li>
           <li><a href="practice.html">Practice</a></li>
           <li><a href="about.html">About & Ethics</a></li>
+          <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle dark mode">🌙</button>
         </ul>
       </div>
     </nav>
@@ -73,8 +75,8 @@
           </div>
           <div class="step">
             <div class="step-num">3</div>
-            <h4>Learn Why</h4>
-            <p>We explain the red flags—not just what's wrong, but why scammers use these tactics.</p>
+            <h4>Get Actionable Tips</h4>
+            <p>We highlight the red flags and give clear, practical steps you can take to avoid the scam.</p>
           </div>
         </div>
         <a href="analyze.html" class="btn btn-secondary">Analyze a Message</a>
@@ -147,6 +149,103 @@
         </div>
       </section>
 
+      <!-- Visual Examples Section -->
+      <section class="examples-section">
+        <h3>📚 See Real Examples</h3>
+        <p>These are actual patterns our tool finds. Test them in the analyzer!</p>
+        <div class="example-grid">
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Phishing Scam</div>
+              <h4 class="example-title">Email Impersonation</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"URGENT: Your bank account has been compromised. Verify your password immediately at [suspicious-link] within 24 hours or your account will be frozen."</div>
+              <div class="example-analysis">
+                <div class="analysis-item">🚨 <strong>Urgency Language:</strong> "URGENT", "within 24 hours"</div>
+                <div class="analysis-item">🎣 <strong>Suspicious Link:</strong> Direct credential request via link</div>
+                <div class="analysis-item">⚠️ <strong>Threat:</strong> Account freezing to create panic</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">AI-Generated Email</div>
+              <h4 class="example-title">ChatGPT Style Text</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Greetings! I hope this message finds you well. We are writing to inform you regarding significant opportunities. Your involvement would be greatly appreciated at this juncture."</div>
+              <div class="example-analysis">
+                <div class="analysis-item">🤖 <strong>Formal Tone:</strong> Overly stiff language</div>
+                <div class="analysis-item">📝 <strong>Generic Phrases:</strong> "I hope this finds you", "at this juncture"</div>
+                <div class="analysis-item">❌ <strong>Awkward Structure:</strong> Uncommon phrasing for humans</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Job Scam</div>
+              <h4 class="example-title">Fake Offer</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Congratulations! You've been selected for a remote position paying $5000/week. No experience needed. Reply with your SSN and bank details to get started."</div>
+              <div class="example-analysis">
+                <div class="analysis-item">💰 <strong>Too Good to Be True:</strong> Unrealistic high pay for no experience</div>
+                <div class="analysis-item">🔑 <strong>Credential Request:</strong> Asking for SSN and bank info</div>
+                <div class="analysis-item">⏬ <strong>Missing Details:</strong> No company name, role title, or requirements</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Romance Scam</div>
+              <h4 class="example-title">Money Request</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Babe, I need your help urgently. I'm stuck overseas and need $2000 for a ticket home. Can you wire money to this account? I can't access my money right now."</div>
+              <div class="example-analysis">
+                <div class="analysis-item">💔 <strong>Emotional Appeal:</strong> "Babe", emotional language</div>
+                <div class="analysis-item">💸 <strong>Urgent Money Request:</strong> Specific amount, time pressure</div>
+                <div class="analysis-item">🏦 <strong>Unusual Wire Method:</strong> Asking for wire transfer instead of bank transfer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Legitimate Email</div>
+              <h4 class="example-title">Real Professional</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Hi Sarah, we received your job application for the Software Engineer position. We'd like to schedule an interview next week. Does Tuesday at 2pm EST work for you? Best, Jane from Acme Tech"</div>
+              <div class="example-analysis">
+                <div class="analysis-item">✅ <strong>Personal Details:</strong> Your name, specific role</div>
+                <div class="analysis-item">📅 <strong>Clear Time/Place:</strong> Specific date, time, timezone</div>
+                <div class="analysis-item">👤 <strong>Named Sender:</strong> Real person with company affiliation</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Misinformation</div>
+              <h4 class="example-title">False Claim</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Studies prove vaccines contain microchips that track your location. Government is hiding this truth. Share this before THEY delete it!"</div>
+              <div class="example-analysis">
+                <div class="analysis-item">❌ <strong>False Claim:</strong> No credible evidence of microchips</div>
+                <div class="analysis-item">😨 <strong>Fear Tactics:</strong> "THEY", "hiding the truth"</div>
+                <div class="analysis-item">🚀 <strong>Urgency & Conspiracy:</strong> "Share before deleted"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- CTA -->
       <section class="cta">
         <h3>Ready to Learn?</h3>
@@ -163,5 +262,13 @@
       <p>&copy; 2026 ScamSensei | Made for the Girls Who Code Challenge</p>
       <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
     </footer>
+
+    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleFABMenu();" title="Get help with scam detection">❓</button>
+    <div class="fab-menu" id="fabMenu">
+      <a href="#" onclick="showHelp('scam'); closeFABMenu(); return false;">🚩 Common Scam Types</a>
+      <a href="#" onclick="showHelp('ai'); closeFABMenu(); return false;">🤖 AI Detection Tips</a>
+      <a href="#" onclick="showHelp('url'); closeFABMenu(); return false;">🔗 Website Analysis</a>
+      <a href="practice.html" onclick="closeFABMenu()">📚 Practice Mode</a>
+    </div>
   </body>
 </html>

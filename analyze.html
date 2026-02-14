@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Analyze Messages — ScamSensei</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -15,6 +16,7 @@
           <li><a href="analyze.html" class="active">Analyze</a></li>
           <li><a href="practice.html">Practice</a></li>
           <li><a href="about.html">About & Ethics</a></li>
+          <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle dark mode">🌙</button>
         </ul>
       </div>
     </nav>
@@ -31,12 +33,36 @@
       <!-- Input Panel -->
       <section class="input-panel">
         <div id="messageMode" class="analysis-mode">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="8" width="40" height="32" rx="2" stroke="#556cd6" stroke-width="2"/>
+              <path d="M4 14H44" stroke="#556cd6" stroke-width="2"/>
+              <rect x="8" y="20" width="28" height="12" rx="1" fill="#556cd6" opacity="0.3"/>
+            </svg>
+            <div>
+              <h3 style="margin: 0; color: var(--primary);">📧 Analyze Message</h3>
+              <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--muted);">Paste any email, text, or DM</p>
+            </div>
+          </div>
           <label for="message">Your Message</label>
           <textarea id="message" rows="10" placeholder="Paste an email, text, DM, or social media message here..." aria-describedby="messageHint"></textarea>
           <p id="messageHint" style="font-size:12px;color:#666;margin-top:8px">Tip: Try pasting suspicious messages from your email spam folder or a phishing email you received.</p>
         </div>
 
         <div id="websiteMode" class="analysis-mode hidden">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="6" width="40" height="36" rx="2" stroke="#9b59b6" stroke-width="2"/>
+              <path d="M4 18H44" stroke="#9b59b6" stroke-width="2"/>
+              <circle cx="12" cy="12" r="1.5" fill="#9b59b6"/>
+              <circle cx="20" cy="12" r="1.5" fill="#9b59b6"/>
+              <circle cx="28" cy="12" r="1.5" fill="#9b59b6"/>
+            </svg>
+            <div>
+              <h3 style="margin: 0; color: var(--primary);">🌐 Analyze Website</h3>
+              <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--muted);">Check URL or HTML source</p>
+            </div>
+          </div>
           <label for="websiteInput">Website URL or HTML</label>
           <textarea id="websiteInput" rows="5" placeholder="Paste a website URL (e.g., https://example.com) or paste the HTML source code..." aria-describedby="websiteHint"></textarea>
           <p id="websiteHint" style="font-size:12px;color:#666;margin-top:8px">Tip: Enter a suspicious website URL or paste its HTML source to analyze for scam indicators.</p>
@@ -60,12 +86,6 @@
       <!-- Results Panel -->
       <section id="result" class="result-panel hidden" aria-live="polite" aria-label="Analysis results">
         
-        <!-- Verdict -->
-        <div class="verdict-section">
-          <h3 id="verdict" role="status"></h3>
-          <p id="verdictExplanation" class="verdict-explanation"></p>
-        </div>
-
         <!-- Score Meters -->
         <div class="score-section">
           <div class="score-meter">
@@ -105,6 +125,12 @@
       <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleFABMenu();" title="Get help with scam detection">❓</button>
+    <div class="fab-menu" id="fabMenu">
+      <a href="#" onclick="showHelp('scam'); closeFABMenu(); return false;">🚩 Common Scam Types</a>
+      <a href="#" onclick="showHelp('ai'); closeFABMenu(); return false;">🤖 AI Detection Tips</a>
+      <a href="#" onclick="showHelp('url'); closeFABMenu(); return false;">🔗 Website Analysis</a>
+      <a href="practice.html" onclick="closeFABMenu()">📚 Practice Mode</a>
+    </div>
   </body>
 </html>
