@@ -29,6 +29,9 @@ if(modeMessageBtn && modeWebsiteBtn) {
     exampleLabel.style.display = 'inline-block';
     exampleSelect.style.display = 'inline-block';
     if(aiMeterContainer) aiMeterContainer.style.display = 'block';
+    // Clear previous results
+    if(resultEl) resultEl.classList.add('hidden');
+    if(reasonsEl) reasonsEl.innerHTML = '';
   });
   
   modeWebsiteBtn.addEventListener('click', () => {
@@ -40,6 +43,9 @@ if(modeMessageBtn && modeWebsiteBtn) {
     exampleLabel.style.display = 'none';
     exampleSelect.style.display = 'none';
     if(aiMeterContainer) aiMeterContainer.style.display = 'none';
+    // Clear previous results
+    if(resultEl) resultEl.classList.add('hidden');
+    if(reasonsEl) reasonsEl.innerHTML = '';
   });
 }
 
@@ -152,18 +158,24 @@ function renderMessageResult(scamRes, aiRes){
   verdictEl.setAttribute('role', 'status');
   
   reasonsEl.innerHTML = '';
-  const heading = document.createElement('strong');
-  heading.textContent = 'Scam Detection Reasons:';
-  reasonsEl.appendChild(heading);
-  scamRes.reasons.forEach(r=>{ const li = document.createElement('li'); li.textContent = r; reasonsEl.appendChild(li); });
   
-  // AI detection reasons
-  const aiHeading = document.createElement('strong');
-  aiHeading.textContent = 'AI Detection Reasons:';
-  aiHeading.style.marginTop = '12px';
-  aiHeading.style.display = 'block';
-  reasonsEl.appendChild(aiHeading);
-  aiRes.reasons.forEach(r=>{ const li = document.createElement('li'); li.textContent = r; reasonsEl.appendChild(li); });
+  // Add scam detection reasons
+  scamRes.reasons.forEach((r, idx) => { 
+    const li = document.createElement('li'); 
+    li.innerHTML = `<strong>Scam Risk:</strong> ${r}`;
+    li.style.animationDelay = (idx * 0.1) + 's';
+    li.style.animation = 'slideIn 0.4s ease-out both';
+    reasonsEl.appendChild(li); 
+  });
+  
+  // Add AI detection reasons
+  aiRes.reasons.forEach((r, idx) => { 
+    const li = document.createElement('li'); 
+    li.innerHTML = `<strong>AI Indicator:</strong> ${r}`;
+    li.style.animationDelay = ((scamRes.reasons.length + idx) * 0.1) + 's';
+    li.style.animation = 'slideIn 0.4s ease-out both';
+    reasonsEl.appendChild(li); 
+  });
 
   // Scam meter width (0-10 scale)
   const scamPct = Math.min(100, Math.round((scamRes.score/10)*100));
@@ -178,9 +190,6 @@ function renderMessageResult(scamRes, aiRes){
   if(scoreEl) scoreEl.textContent = `${scamRes.score}/10`;
   const aiScoreEl = document.getElementById('aiScore');
   if(aiScoreEl) aiScoreEl.textContent = `${Math.round(aiRes.score*100)}%`;
-  
-  // Populate teaching points
-  populateTeachingPoints(scamRes.reasons.concat(aiRes.reasons));
 }
 
 function renderWebsiteResult(websiteRes) {
@@ -208,19 +217,19 @@ function renderWebsiteResult(websiteRes) {
   // Display red flags
   reasonsEl.innerHTML = '';
   if(websiteRes.redFlags.length > 0) {
-    websiteRes.redFlags.forEach(flag=>{ 
+    websiteRes.redFlags.forEach((flag, idx)=>{ 
       const li = document.createElement('li'); 
       li.innerHTML = `<strong>${flag.category}:</strong> ${flag.message}`; 
+      li.style.animationDelay = (idx * 0.1) + 's';
+      li.style.animation = 'slideIn 0.4s ease-out both';
       reasonsEl.appendChild(li); 
     });
   } else {
     const li = document.createElement('li');
-    li.textContent = 'No major red flags detected.';
+    li.innerHTML = '<strong>✓ All Clear:</strong> No major red flags detected.';
+    li.style.animation = 'slideIn 0.4s ease-out both';
     reasonsEl.appendChild(li);
   }
-  
-  // Populate teaching points for website flags
-  populateWebsiteTeachingPoints(websiteRes.redFlags);
 }
 
 // Example messages object
@@ -310,114 +319,6 @@ function detectAI(text){
 
   return { score, verdict, reasons: reasons.length > 0 ? reasons : ['No AI indicators detected'] };
 }
-
-// Teaching Points: Explanations for why each red flag matters
-const teachingExplanations = {
-  'urgent': 'Scammers use urgent language to make you act without thinking. Real companies give you time to verify.',
-  'pressure': 'Artificial urgency is a classic manipulation tactic. Legitimate businesses don\'t pressure you.',
-  'verify': 'Fake verification requests are phishing attempts to steal your credentials. Real companies verify internally.',
-  'password': 'Never give your password to anyone—not even your bank. Legitimate companies never ask for passwords via email.',
-  'ssn': 'Requesting Social Security numbers is a major red flag. Legitimate companies only ask when necessary and via secure channels.',
-  'bank account': 'Never share banking credentials via email or text. This is classic identity theft.',
-  'cvv': 'CVV codes are for secure transactions only. Legitimate companies never ask for them via email.',
-  'pin': 'PINs should never be shared. This is a sign of fraud.',
-  'link': 'External links in suspicious messages often lead to phishing sites or malware. Verify URLs before clicking.',
-  'shortened': 'Shortened links hide the actual destination. Scammers use these to disguise phishing URLs.',
-  'seller mismatch': 'If the sender\'s email doesn\'t match the claimed company, it\'s likely a fake.',
-  'exclamation': 'High-emotion formatting (lots of ! or ALL CAPS) is used to bypass your critical thinking.',
-  'spelling': 'Professional companies proofread. Spelling errors often indicate scams or AI-generated content.',
-  'click': 'Phishing emails try to get you to click links. Legitimate companies don\'t use high-pressure link requests.',
-  'download': 'Unsolicited downloads are common malware delivery methods.',
-  'generic ai': 'These phrases indicate AI-generated text, which scammers use to write convincing fake messages.',
-  'low variance': 'Humans vary sentence length naturally. Consistent lengths suggest AI.',
-  'no contractions': 'Humans use contractions (don\'t, can\'t). AI often avoids them, making text seem formal.',
-  'high stopword': 'AI relies on common words. This linguistic pattern is typical of AI-generated text.',
-  'no punctuation': 'Lack of punctuation variation is unusual for humans but common in AI.',
-  'no questions': 'Humans ask questions and express excitement. Absence of these is a hallmark of AI.',
-  'repeated patterns': 'AI tends to repeat phrase patterns. Human writing is more varied.',
-  'formal punctuation': 'Excessive formal punctuation (commas, semicolons) is typical of AI.',
-  
-  // Website-specific explanations
-  'contact': 'Legitimate businesses want you to reach them. Missing contact info is a major scam indicator.',
-  'phone': 'Real companies have phones. No phone number often means the business doesn\'t exist.',
-  'professional email': 'Using personal emails (@gmail.com) instead of a business domain is suspicious.',
-  'return policy': 'Legitimate stores have return policies. Their absence suggests a scam.',
-  'privacy': 'Privacy and terms are legal requirements for real websites. Missing them is a red flag.',
-  'cryptocurrency': 'Crypto payments can\'t be reversed. Scammers love this. Legitimate businesses offer refunds.',
-  'wire transfer': 'Wire transfers are untraceable. Once sent, your money is gone. Scam sites demand this.',
-  'discount': 'Deals that seem too good to be true usually are. 90% off often means the site is fake.',
-  'grammar': 'Sloppy writing suggests a rushed or fake site. Real companies invest in quality content.',
-  'https': 'HTTP is unencrypted. HTTPS protects data. Always use HTTPS, but note: scammers can get certificates too.',
-  'suspicious tld': 'Domains like .xyz or .shop are cheap and popular with scammers. Legitimate brands use .com, .org, .net.',
-  'misspelled domain': 'Scammers register domains that look like famous brands (amaz0n.com, gooogle.com) to trick you.',
-  'subdomain': 'A suspicious subdomain before the real domain means the real site isn\'t involved. Example: amazon.com.fake-site.com',
-  'about': 'A vague "About Us" page is often a sign of a fake business. Real companies talk about their story and team.',
-  'popup': 'Unexpected popups asking for info are phishing attempts. Real sites don\'t spam you with popups.'
-};
-
-function populateTeachingPoints(reasons) {
-  const teachingPointsEl = document.getElementById('teachingPoints');
-  if(!teachingPointsEl) return;
-  
-  teachingPointsEl.innerHTML = '';
-  const explanationsShown = new Set();
-  
-  reasons.forEach(reason => {
-    const lower = reason.toLowerCase();
-    
-    // Find matching explanation
-    for(const [key, explanation] of Object.entries(teachingExplanations)) {
-      if(lower.includes(key) && !explanationsShown.has(key)) {
-        const div = document.createElement('div');
-        div.className = 'teaching-point';
-        div.innerHTML = `<strong>💡 ${reason.split(':')[0]}:</strong> ${explanation}`;
-        teachingPointsEl.appendChild(div);
-        explanationsShown.add(key);
-        break;
-      }
-    }
-  });
-  
-  // If no specific explanations found, add general guidance
-  if(explanationsShown.size === 0) {
-    const div = document.createElement('div');
-    div.className = 'teaching-point';
-    div.innerHTML = '<strong>✓ Good to know:</strong> When in doubt, trust your instincts. If something feels off, verify independently before sharing information or clicking links.';
-    teachingPointsEl.appendChild(div);
-  }
-}
-
-function populateWebsiteTeachingPoints(flags) {
-  const teachingPointsEl = document.getElementById('teachingPoints');
-  if(!teachingPointsEl) return;
-  
-  teachingPointsEl.innerHTML = '';
-  const explanationsShown = new Set();
-  
-  flags.forEach(flag => {
-    const lower = flag.message.toLowerCase();
-    
-    // Find matching explanation
-    for(const [key, explanation] of Object.entries(teachingExplanations)) {
-      if(lower.includes(key) && !explanationsShown.has(key)) {
-        const div = document.createElement('div');
-        div.className = 'teaching-point';
-        div.innerHTML = `<strong>💡 ${flag.category}:</strong> ${explanation}`;
-        teachingPointsEl.appendChild(div);
-        explanationsShown.add(key);
-        break;
-      }
-    }
-  });
-  
-  // If no specific explanations, add general guidance
-  if(explanationsShown.size === 0) {
-    const div = document.createElement('div');
-    div.className = 'teaching-point';
-    div.innerHTML = '<strong>✓ Good to know:</strong> When evaluating a website, look at multiple factors. A single red flag might be innocent, but several together suggest a scam.';
-    teachingPointsEl.appendChild(div);
-  }
-}
 function analyzeWebsite(input) {
   let score = 0;
   const redFlags = [];
@@ -441,9 +342,9 @@ function analyzeWebsite(input) {
   score = Math.min(10, Math.max(0, score));
   
   let verdict = 'Likely Legitimate';
-  if(score >= 8) verdict = '⚠️ Very High Risk - Likely Scam';
-  else if(score >= 6) verdict = '⚠️ High Risk - Likely Scam';
-  else if(score >= 4) verdict = '🟡 Medium Risk - Suspicious';
+  if(score >= 8) verdict = '🚨 VERY HIGH RISK - Potentially Dangerous';
+  else if(score >= 6) verdict = '⚠️ High Risk - Multiple Threats Detected';
+  else if(score >= 4) verdict = '🟡 Medium Risk - Suspicious Activity';
   else if(score >= 2) verdict = '🟡 Low Risk - Some Concerns';
   
   return { score, verdict, redFlags };
@@ -588,7 +489,124 @@ function analyzeHTMLContent(htmlStr) {
     score += 0.7;
     flags.push({ category: 'Content', message: 'No specific business details or team information' });
   }
-  
+
+  // MALWARE & SECURITY THREATS
+  // Check for malware distribution indicators
+  const malwareIndicators = ['download virus', 'free malware', 'trojan download', 'spyware', 'ransomware', 'keylogger', 'backdoor', 'worm download'];
+  malwareIndicators.forEach(indicator => {
+    if(html.includes(indicator)) {
+      score += 3;
+      flags.push({ category: 'Malware Risk', message: `Potential malware distribution: "${indicator}"` });
+    }
+  });
+
+  // Check for suspicious downloads/executables
+  if(html.match(/\.(exe|bat|cmd|scr|vbs|com|msi|dll)\b/gi)) {
+    score += 2;
+    flags.push({ category: 'Malware Risk', message: 'Offers suspicious executable files for download' });
+  }
+
+  // Check for unverified links that might be malicious
+  const linkCount = (html.match(/href=["']https?:\/\//gi) || []).length;
+  if(linkCount > 20) {
+    score += 1;
+    flags.push({ category: 'Malware Risk', message: 'Excessive external links (common malware distribution tactic)' });
+  }
+
+  // PHISHING INDICATORS (in addition to existing scam checks)
+  const phishingPhrases = ['verify account', 'confirm identity', 'update payment', 'click here immediately', 'unusual activity detected', 'security alert', 'unusual sign-in activity'];
+  phishingPhrases.forEach(phrase => {
+    if(html.includes(phrase)) {
+      score += 1.5;
+      flags.push({ category: 'Phishing Risk', message: `Phishing-style language: "${phrase}"` });
+    }
+  });
+
+  // HARMFUL/INAPPROPRIATE CONTENT
+  // Check for indicators of hate speech or inappropriate content
+  const hateSpeechTerms = ['hate group', 'extremist', 'racist content', 'white supremacy', 'genocide denial', 'slur'];
+  hateSpeechTerms.forEach(term => {
+    if(html.includes(term)) {
+      score += 2.5;
+      flags.push({ category: 'Harmful Content', message: `Potential hate speech or extremist content: "${term}"` });
+    }
+  });
+
+  // Check for adult/inappropriate content indicators
+  const adultkeywords = ['porn', 'xxx', 'nude', 'adult content'];
+  const adultCount = adultkeywords.filter(kw => html.includes(kw)).length;
+  if(adultCount > 0) {
+    score += 1.5;
+    flags.push({ category: 'Harmful Content', message: 'Contains adult/inappropriate content warnings' });
+  }
+
+  // Check for self-harm or dangerous content
+  const selfHarmIndicators = ['self-harm', 'eating disorder tips', 'suicide method', 'depression glorification'];
+  selfHarmIndicators.forEach(indicator => {
+    if(html.includes(indicator)) {
+      score += 2.5;
+      flags.push({ category: 'Mental Health Risk', message: `Dangerous content that glorifies or encourages harm: "${indicator}"` });
+    }
+  });
+
+  // MISINFORMATION & CREDIBILITY
+  // Check for misinformation/conspiracy language
+  const misinfoIndicators = ['government conspiracy', 'fake news', 'coverup', 'illuminati', 'chemtrails'];
+  misinfoIndicators.forEach(indicator => {
+    if(html.includes(indicator)) {
+      score += 1;
+      flags.push({ category: 'Misinformation', message: `Potential misinformation: "${indicator}"` });
+    }
+  });
+
+  // PRIVACY & DATA HARVESTING
+  // Check for suspicious data collection
+  const dataHarvestPhrases = ['track your location', 'monitor activity', 'sell your data', 'harvesting personal info'];
+  dataHarvestPhrases.forEach(phrase => {
+    if(html.includes(phrase)) {
+      score += 1.5;
+      flags.push({ category: 'Privacy Risk', message: `Suspicious data collection practices: "${phrase}"` });
+    }
+  });
+
+  // Check for password harvesting forms without security indicators
+  const hasPasswordForm = html.includes('password') || html.includes('type="password"');
+  const hasSSL = html.includes('https') && html.includes('secure');
+  if(hasPasswordForm && !hasSSL) {
+    score += 2;
+    flags.push({ category: 'Privacy Risk', message: 'Password form without SSL/security indicators (password theft risk)' });
+  }
+
+  // DIGITAL PIRACY
+  // Check for piracy/illegal content distribution
+  const piracyIndicators = ['free movie download', 'download copyrighted', 'torrent', 'crack serial key', 'warez', 'pirated software'];
+  piracyIndicators.forEach(indicator => {
+    if(html.includes(indicator)) {
+      score += 2;
+      flags.push({ category: 'Legal Risk', message: `Potential illegal content: "${indicator}"` });
+    }
+  });
+
+  // PREDATORY BEHAVIOR
+  // Check for grooming or predatory language targeting minors
+  const predatoryPhrases = ['meet young people', 'underage', 'minor friend finder', 'grooming'];
+  predatoryPhrases.forEach(phrase => {
+    if(html.includes(phrase)) {
+      score += 3;
+      flags.push({ category: 'Predatory Risk', message: `Potential predatory content detected: "${phrase}"` });
+    }
+  });
+
+  // DANGEROUS BEHAVIOR ENCOURAGEMENT
+  // Check for encouragement of unsafe security practices
+  const unsafeSecurityPhrases = ['ignore security warnings', 'disable antivirus', 'turn off firewall', 'weak password is fine'];
+  unsafeSecurityPhrases.forEach(phrase => {
+    if(html.includes(phrase)) {
+      score += 1.5;
+      flags.push({ category: 'Security Malpractice', message: `Encourages unsafe practices: "${phrase}"` });
+    }
+  });
+
   return { score, flags };
 }
 

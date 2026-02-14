@@ -184,6 +184,17 @@ h3 {
     }
 }
 
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 /* ============ Cards & Grid ============ */
 .cards {
     display: grid;
@@ -430,6 +441,94 @@ button:active {
     margin: 0.3rem 0;
 }
 
+/* Red Flags Section Styling */
+.red-flags-section {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.08), rgba(230, 126, 34, 0.08));
+    border: 2px solid rgba(231, 76, 60, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.1);
+}
+
+.red-flags-section h4 {
+    color: var(--bad);
+    font-size: 1.2rem;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.red-flags-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.red-flags-list li {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--bad);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.red-flags-list li:hover {
+    transform: translateX(6px);
+    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.25);
+    border-left-color: var(--accent);
+}
+
+.red-flags-list li strong {
+    color: var(--bad);
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.red-flags-list li::before {
+    content: '⚠️';
+    position: absolute;
+    left: 1rem;
+    font-size: 1rem;
+}
+
+.red-flags-list li strong::before {
+    content: '';
+}
+
+/* Verdict Section Styling */
+.verdict-section {
+    background: linear-gradient(135deg, rgba(85, 108, 214, 0.1), rgba(155, 89, 182, 0.1));
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-left: 6px solid var(--primary);
+    box-shadow: 0 4px 12px rgba(85, 108, 214, 0.15);
+}
+
+.verdict-section h3 {
+    margin: 0 0 0.8rem 0;
+    font-size: 1.3rem;
+    color: var(--primary);
+    line-height: 1.5;
+}
+
+.verdict-explanation {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0.5rem 0 0 0;
+}
+
 .teaching-points {
     background: #e3f2fd;
     border-left: 4px solid var(--primary);
@@ -451,27 +550,7 @@ button:active {
     margin: 0.3rem 0;
 }
 
-.teaching-point {
-    background: white;
-    padding: 1rem;
-    border-radius: 6px;
-    margin: 0.8rem 0;
-    border-left: 4px solid var(--primary);
-    line-height: 1.6;
-    color: var(--text);
-}
 
-.teaching-point strong {
-    color: var(--primary);
-    display: block;
-    margin-bottom: 0.4rem;
-    font-size: 0.95rem;
-}
-
-.teaching-point:hover {
-    background: linear-gradient(135deg, rgba(85,108,214,0.05), rgba(155,89,182,0.05));
-    box-shadow: 0 2px 8px rgba(85, 108, 214, 0.1);
-}
 
 .empty-state {
     text-align: center;
@@ -888,6 +967,15 @@ footer a:hover {
 
     footer {
         padding: 1.5rem;
+    }
+
+    .red-flags-section {
+        padding: 1.5rem;
+    }
+
+    .red-flags-list li {
+        padding: 1rem;
+        padding-left: 1.2rem;
     }
 }
 
