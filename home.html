@@ -10,7 +10,7 @@
   <body>
     <nav class="navbar">
       <div class="nav-container">
-        <h1 class="logo">🧠 ScamSensei</h1>
+        <h1 class="logo">ScamSensei</h1>
         <ul class="nav-links">
           <li><a href="home.html" class="active">Home</a></li>
           <li><a href="analyze.html">Analyze</a></li>
@@ -31,33 +31,12 @@
             <a href="analyze.html" class="btn btn-primary">Try It Now</a>
           </div>
           <div class="hero-right">
-            <div class="hero-icons">
-              <div class="icon-group">💬 Chat</div>
-              <div class="icon-group">🧠 AI Brain</div>
-              <div class="icon-group">🚩 Red Flags</div>
-            </div>
+            <img src="womanworkingoncomputerfromiStock.jpg" alt="Woman working on a laptop" class="hero-image">
           </div>
         </div>
       </section>
 
-      <!-- What It Protects -->
-      <section class="protects">
-        <h3>What We Protect</h3>
-        <div class="cards">
-          <div class="card">
-            <h4>🔐 Your Identity</h4>
-            <p>Personal info, logins, credentials. Scammers steal these to impersonate you online.</p>
-          </div>
-          <div class="card">
-            <h4>💰 Your Money</h4>
-            <p>Fake job offers, prize scams, investment fraud. AI makes these more convincing than ever.</p>
-          </div>
-          <div class="card">
-            <h4>✨ Your Confidence</h4>
-            <p>Know what's real. Understand the tactics. Never second-guess yourself again.</p>
-          </div>
-        </div>
-      </section>
+      <!-- What It Protects (moved to bottom) -->
 
       <!-- How It Works -->
       <section class="how-it-works">
@@ -246,16 +225,25 @@
         </div>
       </section>
 
-      <!-- CTA -->
-      <section class="cta">
-        <h3>Ready to Learn?</h3>
-        <p>Start with real examples or try your own message.</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-          <a href="analyze.html" class="btn btn-primary">Analyze Now</a>
-          <a href="practice.html" class="btn btn-secondary">Try Practice Mode</a>
-          <a href="about.html" class="btn btn-outline">Learn More</a>
+      <!-- What We Protect -->
+      <section class="protects">
+        <h3>What We Protect</h3>
+        <div class="cards">
+          <div class="card">
+            <h4>🔐 Your Identity</h4>
+            <p>Personal info, logins, credentials. Scammers steal these to impersonate you online.</p>
+          </div>
+          <div class="card">
+            <h4>💰 Your Money</h4>
+            <p>Fake job offers, prize scams, investment fraud. AI makes these more convincing than ever.</p>
+          </div>
+          <div class="card">
+            <h4>✨ Your Confidence</h4>
+            <p>Know what's real. Understand the tactics. Never second-guess yourself again.</p>
+          </div>
         </div>
       </section>
+
     </main>
 
     <footer>
@@ -263,12 +251,24 @@
       <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
     </footer>
 
-    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleFABMenu();" title="Get help with scam detection">❓</button>
-    <div class="fab-menu" id="fabMenu">
-      <a href="#" onclick="showHelp('scam'); closeFABMenu(); return false;">🚩 Common Scam Types</a>
-      <a href="#" onclick="showHelp('ai'); closeFABMenu(); return false;">🤖 AI Detection Tips</a>
-      <a href="#" onclick="showHelp('url'); closeFABMenu(); return false;">🔗 Website Analysis</a>
-      <a href="practice.html" onclick="closeFABMenu()">📚 Practice Mode</a>
+    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleChatbot();" title="Ask ScamSensei">❓</button>
+    <div class="chatbot-panel" id="chatbotPanel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div class="chatbot-title">Ask ScamSensei</div>
+        <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chatbot">×</button>
+      </div>
+      <div class="chatbot-body">
+        <div class="chatbot-help">
+          <button class="chatbot-chip" onclick="sendHelpTopic('scam')">Common Scam Types</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('ai')">AI Detection Tips</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('url')">Website Analysis</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+      </div>
+      <form class="chatbot-input" id="chatbotForm" onsubmit="return sendChatMessage(event);">
+        <input type="text" id="chatbotInput" placeholder="Ask about scam safety or how ScamSensei works" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
     </div>
   </body>
 </html>

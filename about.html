@@ -120,12 +120,24 @@
       <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
     </footer>
 
-    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleFABMenu();" title="Get help with scam detection">❓</button>
-    <div class="fab-menu" id="fabMenu">
-      <a href="#" onclick="showHelp('scam'); closeFABMenu(); return false;">🚩 Common Scam Types</a>
-      <a href="#" onclick="showHelp('ai'); closeFABMenu(); return false;">🤖 AI Detection Tips</a>
-      <a href="#" onclick="showHelp('url'); closeFABMenu(); return false;">🔗 Website Analysis</a>
-      <a href="analyze.html" onclick="closeFABMenu()">🔍 Analyze Now</a>
+    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleChatbot();" title="Ask ScamSensei">❓</button>
+    <div class="chatbot-panel" id="chatbotPanel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div class="chatbot-title">Ask ScamSensei</div>
+        <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chatbot">×</button>
+      </div>
+      <div class="chatbot-body">
+        <div class="chatbot-help">
+          <button class="chatbot-chip" onclick="sendHelpTopic('scam')">Common Scam Types</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('ai')">AI Detection Tips</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('url')">Website Analysis</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+      </div>
+      <form class="chatbot-input" id="chatbotForm" onsubmit="return sendChatMessage(event);">
+        <input type="text" id="chatbotInput" placeholder="Ask about scam safety or how ScamSensei works" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
     </div>
   </body>
 </html>

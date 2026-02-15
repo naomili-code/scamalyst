@@ -91,6 +91,8 @@ function initButtonListeners() {
     });
   }
 
+  
+
   const selectEl = document.getElementById('exampleSelect');
   if(selectEl) {
     selectEl.addEventListener('change', (e) => {
@@ -737,7 +739,7 @@ function levenshteinDistance(a, b) {
   return matrix[b.length][a.length];
 }
 
-// No external model calls — purely rule-based analyzer
+// Analyzer and chatbot are rule-based (no external model calls)
 
 // ============ Floating Action Button ============
 window.toggleFABMenu = function() {
@@ -756,6 +758,126 @@ window.closeFABMenu = function() {
     menu.classList.remove('show');
   }
 };
+
+// ============ Chatbot (FAB) ============
+const CHAT_MODE = 'local';
+
+function getHelpText(topic) {
+  const helpTopics = {
+    scam: 'COMMON SCAM INDICATORS\n\n- Urgent or threatening language\n- Requests for passwords, SSN, or card numbers\n- Suspicious links or shortened URLs\n- Mentions of gift cards, wire, or crypto\n- Impersonating banks, companies, or government\n- Grammar and spelling errors\n- Pressure to act immediately\n- Claims of unexpected money or prizes',
+    ai: 'AI-GENERATED TEXT SIGNS\n\n- Repetitive sentence structure\n- Generic phrases ("I hope this finds you well")\n- Overly formal tone or awkward word choice\n- Few or no contractions ("do not" vs "don\'t")\n- Too many adjectives and filler\n- No personal details or references\n- Consistent, predictable punctuation',
+    url: 'SUSPICIOUS WEBSITE RED FLAGS\n\n- Misspelled domain names\n- Missing HTTPS or strange redirects\n- No contact info or privacy policy\n- Low-quality images or sloppy design\n- "Too good to be true" pricing\n- Only accepts crypto, gift cards, or wire\n- Newly created domain\n- Excessive pop-ups or forced downloads'
+  };
+
+  return helpTopics[topic] || 'Ask a question about scam safety or how ScamSensei works.';
+}
+
+function openChatbot() {
+  const panel = document.getElementById('chatbotPanel');
+  if(!panel) return;
+  panel.classList.add('show');
+  panel.setAttribute('aria-hidden', 'false');
+
+  const messages = document.getElementById('chatbotMessages');
+  if(messages && messages.children.length === 0) {
+    appendChatMessage('bot', 'Ask about scam safety or how ScamSensei works. This FAQ bot answers common questions.');
+  }
+
+  const input = document.getElementById('chatbotInput');
+  if(input) input.focus();
+}
+
+function closeChatbot() {
+  const panel = document.getElementById('chatbotPanel');
+  if(!panel) return;
+  panel.classList.remove('show');
+  panel.setAttribute('aria-hidden', 'true');
+}
+
+function toggleChatbot() {
+  const panel = document.getElementById('chatbotPanel');
+  if(!panel) return;
+  const isOpen = panel.classList.contains('show');
+  if(isOpen) {
+    closeChatbot();
+  } else {
+    openChatbot();
+  }
+}
+
+function appendChatMessage(role, text) {
+  const messages = document.getElementById('chatbotMessages');
+  if(!messages) return null;
+  const msg = document.createElement('div');
+  msg.className = `chatbot-message ${role}`;
+  msg.textContent = text;
+  messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
+  return msg;
+}
+
+function localChatReply(userText) {
+  const text = (userText || '').toLowerCase();
+
+  const replies = [
+    { keys: ['what is scamsensei', 'what does this site do', 'what is this'],
+      answer: 'ScamSensei helps you spot scam patterns and teaches red flags in messages and websites. Use Analyze for a quick check and Practice for examples.' },
+    { keys: ['how does it work', 'how do i use', 'how to use'],
+      answer: 'Paste a message or URL into Analyze. You will get a risk score and red flags. Practice Mode shows examples and explanations.' },
+    { keys: ['analyze', 'analysis', 'scanner'],
+      answer: 'Go to Analyze, paste the message or URL, and click Analyze. The tool highlights urgency, suspicious links, and sensitive info requests.' },
+    { keys: ['practice', 'examples', 'learn'],
+      answer: 'Practice Mode shows real-world examples and teaches why they are risky. It is a safe way to learn patterns.' },
+    { keys: ['phishing', 'email', 'text', 'sms'],
+      answer: 'Phishing often uses urgency, impersonation, and links to fake login pages. Do not click links; go to the official site directly.' },
+    { keys: ['website', 'url', 'link'],
+      answer: getHelpText('url') },
+    { keys: ['ai', 'generated', 'chatgpt'],
+      answer: getHelpText('ai') },
+    { keys: ['scam', 'fraud', 'fake', 'gift card', 'wire', 'crypto'],
+      answer: getHelpText('scam') },
+    { keys: ['report', 'where report', 'who to report'],
+      answer: 'Report scams to the platform where you saw them, and consider reporting to local consumer protection agencies or your bank if money is involved.' }
+  ];
+
+  for(const rule of replies) {
+    if(rule.keys.some(k => text.includes(k))) return rule.answer;
+  }
+
+  return 'I can help with scam safety and using ScamSensei. Try asking about phishing, suspicious websites, AI-generated text, or how to use Analyze/Practice.';
+}
+
+async function callChatbot(userText) {
+  if(CHAT_MODE === 'local') return localChatReply(userText);
+  return 'Chatbot is in FAQ-only mode.';
+}
+
+function sendHelpTopic(topic) {
+  openChatbot();
+  appendChatMessage('bot', getHelpText(topic));
+}
+
+async function sendChatMessage(event) {
+  if(event) event.preventDefault();
+  const input = document.getElementById('chatbotInput');
+  if(!input) return false;
+
+  const text = input.value.trim();
+  if(!text) return false;
+
+  input.value = '';
+  appendChatMessage('user', text);
+  const placeholder = appendChatMessage('bot', 'Thinking...');
+
+  try {
+    const reply = await callChatbot(text);
+    if(placeholder) placeholder.textContent = reply || 'Sorry, I could not generate a response.';
+  } catch (err) {
+    if(placeholder) placeholder.textContent = 'Sorry, something went wrong.';
+  }
+
+  return false;
+}
 
 // Close menu when clicking outside (with better checks)
 document.addEventListener('click', function(e) {
@@ -863,15 +985,9 @@ function renderRiskBadge(score, maxScore = 10) {
 
 // ============ Help Function for FAB ============
 function showHelp(topic) {
-  const helps = {
-    scam: '🚨 COMMON SCAM INDICATORS\n\n• Urgent/threatening language ("ACT NOW", "LIMITED TIME")\n• Requests for passwords, SSN, or card numbers\n• Suspicious links or shortened URLs\n• Mentions of payment (gift cards, wire, crypto)\n• Impersonating banks, companies, or government\n• Grammar/spelling errors\n• Pressure to act in secret or immediately\n• Claims of unexpected money/prizes',
-    ai: '🤖 AI-GENERATED TEXT SIGNS\n\n• Repetitive sentence structure\n• Generic phrases ("I hope this finds you well")\n• Unusual word choices or overly formal tone\n• Few or no contractions ("do not" vs "don\'t")\n• Too many adjectives and descriptors\n• No personal details or specific references\n• Missing regional dialect or personality\n• Consistent, predictable punctuation',
-    url: '🔗 SUSPICIOUS WEBSITE RED FLAGS\n\n• Misspelled domain names ("micros0ft.com")\n• No HTTPS (no padlock icon)\n• Missing contact info or privacy policies\n• Low-quality images or poor design\n• "Too good to be true" pricing or deals\n• Only accepts crypto/gift cards/wire transfer\n• Domain recently created (weeks old)\n• Excessive pop-ups, redirects, or ads'
-  };
-  
-  const message = helps[topic] || 'For more help, visit Practice Mode or the About page.';
+  const message = getHelpText(topic);
   alert(message);
-  
+
   // Close the FAB menu
   const fabMenu = document.getElementById('fabMenu');
   if(fabMenu) fabMenu.classList.remove('show');

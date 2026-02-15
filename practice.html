@@ -88,6 +88,17 @@
       let currentIndex = 0;
       let correctAnswers = 0;
 
+      // Fisher-Yates shuffle to randomize scenarios order on each page load
+      function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+      }
+
+      // Shuffle scenarios so practice order changes each visit
+      shuffleArray(scenarios);
+
       function renderScenario() {
         if (currentIndex >= scenarios.length) {
           document.getElementById('practiceContainer').classList.add('hidden');
@@ -140,15 +151,38 @@
         renderScenario();
       }
 
+      // Allow pressing Enter to go to the next scenario when feedback is visible
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          const fb = document.getElementById('feedback');
+          if (fb && !fb.classList.contains('hidden')) {
+            e.preventDefault();
+            nextScenario();
+          }
+        }
+      });
+
       renderScenario();
     </script>
 
-    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleFABMenu();" title="Get help with scam detection">❓</button>
-    <div class="fab-menu" id="fabMenu">
-      <a href="#" onclick="showHelp('scam'); closeFABMenu(); return false;">🚩 Common Scam Types</a>
-      <a href="#" onclick="showHelp('ai'); closeFABMenu(); return false;">🤖 AI Detection Tips</a>
-      <a href="#" onclick="showHelp('url'); closeFABMenu(); return false;">🔗 Website Analysis</a>
-      <a href="analyze.html" onclick="closeFABMenu()">🔍 Analyze Now</a>
+    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleChatbot();" title="Ask ScamSensei">❓</button>
+    <div class="chatbot-panel" id="chatbotPanel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div class="chatbot-title">Ask ScamSensei</div>
+        <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chatbot">×</button>
+      </div>
+      <div class="chatbot-body">
+        <div class="chatbot-help">
+          <button class="chatbot-chip" onclick="sendHelpTopic('scam')">Common Scam Types</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('ai')">AI Detection Tips</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('url')">Website Analysis</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+      </div>
+      <form class="chatbot-input" id="chatbotForm" onsubmit="return sendChatMessage(event);">
+        <input type="text" id="chatbotInput" placeholder="Ask about scam safety or how ScamSensei works" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
     </div>
 
   </body>
