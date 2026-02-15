@@ -10,7 +10,7 @@
   <body>
     <nav class="navbar">
       <div class="nav-container">
-        <h1 class="logo">🧠 ScamSensei</h1>
+        <h1 class="logo">ScamSensei</h1>
         <ul class="nav-links">
           <li><a href="home.html">Home</a></li>
           <li><a href="analyze.html">Analyze</a></li>
@@ -22,8 +22,8 @@
     </nav>
 
     <main class="container practice-page">
-      <h2>Practice Mode</h2>
-      <p class="subtitle">Test your skills! Read each scenario and guess: Safe, Suspicious, or Scam?</p>
+      <h2 class="page-header">Practice Mode</h2>
+      <p class="subtitle">Test your skills! Read each scenario and guess: Safe or Scam?</p>
 
       <div id="practiceContainer" class="practice-container">
         <!-- Scenarios will be inserted here by JavaScript -->
@@ -61,7 +61,7 @@
         {
           message: "The implementation of cybersecurity protocols necessitates adherence to established frameworks. Organizations should evaluate defensive mechanisms.",
           correct: "scam",
-          explanation: "Over-formal language, no contractions, generic business jargon. Common in AI-generated phishing."
+          explanation: "Over-formal, templated language can be used in phishing or AI-generated scams."
         },
         {
           message: "Quick question—can you help me understand the deadline for our project? No rush!",
@@ -76,12 +76,132 @@
         {
           message: "As an AI language model, I must note that password security is important. You should update your credentials monthly.",
           correct: "scam",
-          explanation: "AI red flags: 'as an AI', 'I must note'. Tries to establish authority falsely."
+          explanation: "AI disclaimer language in unsolicited messages is a red flag."
         },
         {
           message: "The company's Q4 earnings report shows a 15% increase. Thought you'd want to know!",
           correct: "safe",
           explanation: "Informative, no urgency, no requests for sensitive info, natural tone."
+        },
+        {
+          message: "Delivery notice: Your package is on hold. Confirm address here: delivery-status.com/track",
+          correct: "scam",
+          explanation: "Unexpected delivery alert + generic link + pressure to click."
+        },
+        {
+          message: "Hey, are you free to jump on a quick call? I lost access to my account and need a code.",
+          correct: "scam",
+          explanation: "Asks for a code. This is a common takeover tactic."
+        },
+        {
+          message: "Reminder: Your library book is due tomorrow. Reply YES to extend.",
+          correct: "safe",
+          explanation: "Low-risk reminder with no links or requests for sensitive data."
+        },
+        {
+          message: "We noticed a sign-in from a new device. If this was you, ignore. If not, secure your account in Settings.",
+          correct: "safe",
+          explanation: "No link and provides a safe action (go to Settings yourself)."
+        },
+        {
+          message: "Invoice attached for last month. Please review and confirm.",
+          correct: "scam",
+          explanation: "Unexpected invoice attachments are a common malware trick."
+        },
+        {
+          message: "Congratulations! You are selected for a remote job paying $5,000/week. No interview required.",
+          correct: "scam",
+          explanation: "Unrealistic pay and no interview are major job-scam indicators."
+        },
+        {
+          message: "Hi! This is Mia from Acme Tech. We reviewed your application and would like to schedule a 20-minute call. Are you free Wednesday at 2pm EST?",
+          correct: "safe",
+          explanation: "Specific details, reasonable request, professional tone."
+        },
+        {
+          message: "Tech support: We detected viruses on your computer. Call now to avoid data loss.",
+          correct: "scam",
+          explanation: "Scare tactics and unsolicited support requests are classic tech support scams."
+        },
+        {
+          message: "Your friend tagged you in a photo. View here: pics-share.net/yourname",
+          correct: "scam",
+          explanation: "Unexpected social link with a suspicious domain."
+        },
+        {
+          message: "Can you send me the presentation file again? My email filter blocked it.",
+          correct: "safe",
+          explanation: "Reasonable request with no links or sensitive info."
+        },
+        {
+          message: "Thank you for your donation to the local shelter! Receipt #20491",
+          correct: "safe",
+          explanation: "No link or request. A plain receipt is typically safe."
+        },
+        {
+          message: "We are updating our payment system. Please re-enter your card details to avoid service interruption.",
+          correct: "scam",
+          explanation: "Requests card details with urgency and no verified channel."
+        },
+        {
+          message: "Hi team, the meeting is moved to 3:30pm. The agenda is in the shared drive.",
+          correct: "safe",
+          explanation: "Routine update with no links or sensitive requests."
+        },
+        {
+          message: "Your account will be deleted in 2 hours. Verify your identity now: account-secure-login.com",
+          correct: "scam",
+          explanation: "Threats + urgency + suspicious domain."
+        },
+        {
+          message: "Mom, my phone broke. This is my new number. Can you send $200 right now?",
+          correct: "scam",
+          explanation: "Impersonation + urgent money request is a common family scam."
+        },
+        {
+          message: "Hey! Loved your presentation today. Do you have time this week to share your notes?",
+          correct: "safe",
+          explanation: "Friendly and specific, no links or sensitive info."
+        },
+        {
+          message: "Security update required: download this file to keep your device protected.",
+          correct: "scam",
+          explanation: "Unsolicited download requests are high risk."
+        },
+        {
+          message: "Your refund is ready. Provide your bank login to receive it today.",
+          correct: "scam",
+          explanation: "Requests login credentials, which legitimate companies never do."
+        },
+        {
+          message: "Thanks for signing up for our newsletter! You can unsubscribe anytime.",
+          correct: "safe",
+          explanation: "Standard confirmation, no urgency or requests."
+        },
+        {
+          message: "Meeting reminder: 1:1 with Jordan at 10:00am. Location: Conference Room B.",
+          correct: "safe",
+          explanation: "Routine calendar reminder with no links or requests."
+        },
+        {
+          message: "Your ride is waiting at the main entrance. Driver: Alex, Car: Blue Prius.",
+          correct: "safe",
+          explanation: "Specific details and no request for sensitive info."
+        },
+        {
+          message: "Your payment receipt is available in the app. No action needed.",
+          correct: "safe",
+          explanation: "Directs you to the official app and asks for nothing."
+        },
+        {
+          message: "School update: Tomorrow is an early release day at 12:30pm.",
+          correct: "safe",
+          explanation: "Informational notice with no links or requests."
+        },
+        {
+          message: "Package delivered: left at front door. If you do not recognize this order, contact support via the official app.",
+          correct: "safe",
+          explanation: "No link included and suggests safe verification through the app."
         }
       ];
 
@@ -115,7 +235,6 @@
             <div class="scenario-message">"${scenario.message}"</div>
             <div class="scenario-buttons">
               <button onclick="answerScenario('safe')" class="btn btn-small">✅ Safe</button>
-              <button onclick="answerScenario('suspicious')" class="btn btn-small">⚠️ Suspicious</button>
               <button onclick="answerScenario('scam')" class="btn btn-small">🚩 Scam</button>
             </div>
             <div id="feedback" class="hidden"></div>
@@ -131,8 +250,8 @@
         
         if (isCorrect) correctAnswers++;
 
-        const verdictText = answer === 'safe' ? '✅ Safe' : answer === 'suspicious' ? '⚠️ Suspicious' : '🚩 Scam';
-        const correctText = scenario.correct === 'safe' ? '✅ Safe' : scenario.correct === 'suspicious' ? '⚠️ Suspicious' : '🚩 Scam';
+        const verdictText = answer === 'safe' ? '✅ Safe' : '🚩 Scam';
+        const correctText = scenario.correct === 'safe' ? '✅ Safe' : '🚩 Scam';
 
         feedback.innerHTML = `
           <p style="color:${isCorrect ? '#2ecc71' : '#e74c3c'};font-weight:bold">

@@ -181,6 +181,17 @@ function analyzeMessage(text){
   return {score,verdict,reasons};
 }
 
+function setScamMeterColor(score) {
+  if(!meterFill) return;
+  if(score <= 2) {
+    meterFill.style.background = 'linear-gradient(90deg, #2ecc71, #2ecc71)';
+  } else if(score >= 7) {
+    meterFill.style.background = 'linear-gradient(90deg, #e74c3c, #e74c3c)';
+  } else {
+    meterFill.style.background = 'linear-gradient(90deg, #2ecc71, #f1c40f, #e74c3c)';
+  }
+}
+
 function renderMessageResult(scamRes, aiRes){
   if(!resultEl) return; // Only render if on analyze page
   
@@ -210,6 +221,7 @@ function renderMessageResult(scamRes, aiRes){
 
   // Scam meter width (0-10 scale) with animation
   const scamPct = Math.min(100, Math.round((scamRes.score/10)*100));
+  setScamMeterColor(scamRes.score);
   
   // Use setTimeout to ensure animation plays
   setTimeout(() => {
@@ -254,16 +266,7 @@ function renderMessageResult(scamRes, aiRes){
     else redFlagsSection.classList.add('risk-very-high');
   }
   
-  // Add threat breakdown chart
-  const chartHTML = createThreatChart([...scamRes.reasons.map(r => ({category: 'Scam'})), ...aiRes.reasons.map(r => ({category: 'AI'}))]);
-  if(chartHTML) {
-    const existingChart = resultEl.querySelector('.threat-chart-container');
-    if(existingChart) {
-      existingChart.replaceWith(chartHTML);
-    } else {
-      resultEl.insertAdjacentHTML('beforeend', chartHTML);
-    }
-  }
+  // Threat breakdown chart removed for clarity
 }
 
 function renderWebsiteResult(websiteRes) {
@@ -277,6 +280,7 @@ function renderWebsiteResult(websiteRes) {
   if(scoreLabel) scoreLabel.textContent = 'Legitimacy Risk Score';
   
   const scamPct = Math.min(100, Math.round((websiteRes.score/10)*100));
+  setScamMeterColor(websiteRes.score);
   
   // Animate meter with delay
   setTimeout(() => {
@@ -328,16 +332,7 @@ function renderWebsiteResult(websiteRes) {
     else redFlagsSection.classList.add('risk-very-high');
   }
   
-  // Add threat breakdown chart for website flags
-  const chartHTML = createThreatChart(websiteRes.redFlags);
-  if(chartHTML) {
-    const existingChart = resultEl.querySelector('.threat-chart-container');
-    if(existingChart) {
-      existingChart.replaceWith(chartHTML);
-    } else {
-      resultEl.insertAdjacentHTML('beforeend', chartHTML);
-    }
-  }
+  // Threat breakdown chart removed for clarity
 }
 
 // Example messages object
