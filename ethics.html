@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ethics — ScamSensei</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js?v=20260216b"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo">ScamSensei</h1>
+        <ul class="nav-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="analyze.html">Analyze</a></li>
+          <li><a href="practice.html">Practice</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="ethics.html" class="active">Ethics</a></li>
+          <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle dark mode">🌙</button>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container about-page">
+      <h2>Ethics & Transparency</h2>
+
+      <section>
+        <h3>How AI Helps (and Its Limits)</h3>
+        <p><strong>What ScamSensei uses AI for:</strong></p>
+        <ul>
+          <li>Pattern recognition (urgency language, threats, requests for sensitive info)</li>
+          <li>Linguistic analysis (spotting AI-generated text through wording and structure)</li>
+          <li>Educational explanations (teaching why a message may be risky)</li>
+        </ul>
+        <p><strong>What ScamSensei does not claim:</strong></p>
+        <ul>
+          <li>100% accuracy</li>
+          <li>Replacement for human judgment</li>
+          <li>Legal advice or guarantees</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Privacy Promise</h3>
+        <ul>
+          <li>✅ Messages are not saved</li>
+          <li>✅ No personal data is collected</li>
+          <li>✅ No tracking cookies</li>
+          <li>✅ Analysis runs locally in your browser</li>
+          <li>✅ We cannot see what you analyze</li>
+        </ul>
+        <p><em>You own your data. Always.</em></p>
+      </section>
+
+      <section>
+        <h3>The Ethics of AI Detection</h3>
+        <p><strong>Question:</strong> Is it ethical to detect AI-generated text?</p>
+        <p><strong>Our position:</strong> Yes—when the goal is protection, not surveillance. ScamSensei uses AI detection to help users recognize manipulation patterns, not to shame writing styles or restrict legitimate AI use.</p>
+        <p><strong>Core principles:</strong></p>
+        <ul>
+          <li>Transparency over secrecy</li>
+          <li>User safety over alarmism</li>
+          <li>Education over blame</li>
+          <li>User benefit over data extraction</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Limitations</h3>
+        <ul>
+          <li>Works best on English text (multi-language support is a future goal)</li>
+          <li>Heuristic analysis can produce false positives or false negatives</li>
+          <li>Does not verify sender identity via technical mail checks like DMARC/SPF</li>
+          <li>Does not guarantee that a link is malicious—only that it appears suspicious</li>
+          <li>Scam tactics evolve continuously, so detection requires ongoing updates</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Disclaimer</h3>
+        <p><strong>ScamSensei provides guidance, not guarantees.</strong> Always verify suspicious messages independently, especially anything involving money, credentials, or personal information.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 ScamSensei | Made for the Girls Who Code Challenge</p>
+      <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
+    </footer>
+
+    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleChatbot();" title="Ask ScamSensei">❓</button>
+    <div class="chatbot-panel" id="chatbotPanel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div class="chatbot-title">Ask ScamSensei</div>
+        <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chatbot">×</button>
+      </div>
+      <div class="chatbot-body">
+        <div class="chatbot-help">
+          <button class="chatbot-chip" onclick="sendHelpTopic('scam')">Common Scam Types</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('ai')">AI Detection Tips</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('url')">Website Analysis</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+      </div>
+      <form class="chatbot-input" id="chatbotForm" onsubmit="return sendChatMessage(event);">
+        <input type="text" id="chatbotInput" placeholder="Ask about scam safety or how ScamSensei works" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </body>
+</html>
