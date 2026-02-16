@@ -3,14 +3,272 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>ScamSensei</title>
-    <meta http-equiv="refresh" content="0; url=home.html" />
-    <link rel="canonical" href="home.html" />
-    <script>
-      window.location.replace('home.html');
-    </script>
+    <title>ScamSensei — Learn to Spot Scams Before They Spot You</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
   </head>
   <body>
-    <p>Redirecting to <a href="home.html">ScamSensei Home</a>...</p>
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo">ScamSensei</h1>
+        <ul class="nav-links">
+          <li><a href="home.html" class="active">Home</a></li>
+          <li><a href="analyze.html">Analyze</a></li>
+          <li><a href="practice.html">Practice</a></li>
+          <li><a href="about.html">About & Ethics</a></li>
+          <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle dark mode">🌙</button>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="home-main">
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-left">
+            <h2>Think before you click.</h2>
+            <p class="hero-description">ScamSensei uses AI to analyze messages and teach you how scammers and AI manipulate language. You get clear explanations, not just warnings, so you can learn the patterns and spot them faster next time. Protect your identity, money, and peace of mind with practical tips you can apply immediately.</p>
+            <a href="analyze.html" class="btn btn-primary">Try It Now</a>
+          </div>
+          <div class="hero-right">
+            <img src="womanworkingoncomputerfromiStock.jpg" alt="Woman working on a laptop" class="hero-image">
+          </div>
+        </div>
+      </section>
+
+      <!-- What It Protects (moved to bottom) -->
+
+      <!-- How It Works -->
+      <section class="how-it-works">
+        <h3>How It Works</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h4>Paste a Message</h4>
+            <p>Email, text, DM, social post—anything you're unsure about.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <h4>AI Analyzes Patterns</h4>
+            <p>Scam signals, AI-generated text, urgency language, suspicious links.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <h4>Get Actionable Tips</h4>
+            <p>We highlight the red flags and give clear, practical steps you can take to avoid the scam.</p>
+          </div>
+        </div>
+        <span class="btn btn-secondary">Analyze a Message</span>
+      </section>
+
+      <!-- Why This Matters -->
+      <section class="why-it-matters">
+        <h3>Why This Matters</h3>
+        <p><strong>AI has made scams easier.</strong> Fake emails sound real. Deepfakes trick you. AI-generated text bypasses filters.</p>
+        <p><strong>You deserve tools to fight back.</strong> ScamSensei shows you how AI can protect you—not just threaten you.</p>
+      </section>
+
+      <!-- Website Red Flags Guide -->
+      <section class="website-red-flags">
+        <h3>Identifying Non-Legitimate Websites</h3>
+        <p>Beyond scam messages, scammers create fake websites to steal your information. Here's how to spot them:</p>
+        
+        <div class="guide-sections">
+          <div class="guide-card">
+            <h4>🔗 1. Scrutinize the URL (Web Address)</h4>
+            <ul>
+              <li><strong>Misspelled Domains:</strong> Watch for slightly altered names like "micros0ft.com" instead of "microsoft.com" or "gooogle.com"</li>
+              <li><strong>Suspicious Top-Level Domains:</strong> Be wary of unusual extensions like .store, .shop, or .top</li>
+              <li><strong>Subdomain Tricks:</strong> In a URL like "google.com.cust-login.ie", the actual domain is "cust-login.ie", not google.com</li>
+              <li><strong>Check for HTTPS:</strong> Ensure the address bar starts with "https://" (the 's' stands for secure), but remember scammers can sometimes obtain certificates too</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <h4>✍️ 2. Evaluate Site Content and Design</h4>
+            <ul>
+              <li><strong>Poor Grammar and Spelling:</strong> Legitimate companies have professional content. Frequent typos and broken English are red flags</li>
+              <li><strong>Low-Quality Images:</strong> Blurry, pixelated logos or product images often indicate a fraudulent site</li>
+              <li><strong>Missing or Generic "About Us":</strong> Vague, empty, or formulaic "About Us" pages are signs of a scam</li>
+              <li><strong>No Real Contact Information:</strong> Legitimate businesses provide a physical address, phone number, and professional email—not just generic forms or @gmail.com addresses</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <h4>💰 3. Check for "Too Good to be True" Deals</h4>
+            <ul>
+              <li><strong>Suspiciously Cheap Products:</strong> If a brand-new, popular item is listed at a massive discount (90% off), it's almost certainly a scam to steal credit card information</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <h4>🛡️ 4. Use Security and Verification Tools</h4>
+            <ul>
+              <li><strong>Check Domain Age:</strong> Use WHOIS lookup tools to see when the domain was created. A newly registered domain (weeks old) claiming to be well-established is suspicious</li>
+              <li><strong>Google Safe Browsing:</strong> Enter the URL into Google Transparency Report to check its reputation</li>
+              <li><strong>Check for Reviews:</strong> Search the website name along with "scam," "reviews," or "complaints" on sites like Trustpilot or BBB</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <h4>📋 5. Review Policies</h4>
+            <ul>
+              <li><strong>No Return Policy:</strong> Legitimate e-commerce sites have clear shipping, return, and privacy policies. If these are missing or overly complicated, avoid the site</li>
+            </ul>
+          </div>
+
+          <div class="guide-card red-flag-summary">
+            <h4>⚠️ Summary of Major Red Flags</h4>
+            <ul>
+              <li><strong>Payment Methods:</strong> Only accepting non-reversible, untraceable payments like cryptocurrencies, wire transfers, or gift cards</li>
+              <li><strong>Urgent Demands:</strong> Sites pressuring you to act immediately, claiming your account is locked or a deal is expiring soon</li>
+              <li><strong>Unexpected Pop-ups:</strong> Frequent, suspicious pop-ups asking for personal information</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visual Examples Section -->
+      <section class="examples-section">
+        <h3>📚 See Real Examples</h3>
+        <p>These are actual patterns our tool finds. Test them in the analyzer!</p>
+        <div class="example-grid">
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Phishing Scam</div>
+              <h4 class="example-title">Email Impersonation</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"URGENT: Your bank account has been compromised. Verify your password immediately at [suspicious-link] within 24 hours or your account will be frozen."</div>
+              <div class="example-analysis">
+                <div class="analysis-item">🚨 <strong>Urgency Language:</strong> "URGENT", "within 24 hours"</div>
+                <div class="analysis-item">🎣 <strong>Suspicious Link:</strong> Direct credential request via link</div>
+                <div class="analysis-item">⚠️ <strong>Threat:</strong> Account freezing to create panic</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">AI-Generated Email</div>
+              <h4 class="example-title">ChatGPT Style Text</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Greetings! I hope this message finds you well. We are writing to inform you regarding significant opportunities. Your involvement would be greatly appreciated at this juncture."</div>
+              <div class="example-analysis">
+                <div class="analysis-item">🤖 <strong>Formal Tone:</strong> Overly stiff language</div>
+                <div class="analysis-item">📝 <strong>Generic Phrases:</strong> "I hope this finds you", "at this juncture"</div>
+                <div class="analysis-item">❌ <strong>Awkward Structure:</strong> Uncommon phrasing for humans</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Job Scam</div>
+              <h4 class="example-title">Fake Offer</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Congratulations! You've been selected for a remote position paying $5000/week. No experience needed. Reply with your SSN and bank details to get started."</div>
+              <div class="example-analysis">
+                <div class="analysis-item">💰 <strong>Too Good to Be True:</strong> Unrealistic high pay for no experience</div>
+                <div class="analysis-item">🔑 <strong>Credential Request:</strong> Asking for SSN and bank info</div>
+                <div class="analysis-item">⏬ <strong>Missing Details:</strong> No company name, role title, or requirements</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Romance Scam</div>
+              <h4 class="example-title">Money Request</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Babe, I need your help urgently. I'm stuck overseas and need $2000 for a ticket home. Can you wire money to this account? I can't access my money right now."</div>
+              <div class="example-analysis">
+                <div class="analysis-item">💔 <strong>Emotional Appeal:</strong> "Babe", emotional language</div>
+                <div class="analysis-item">💸 <strong>Urgent Money Request:</strong> Specific amount, time pressure</div>
+                <div class="analysis-item">🏦 <strong>Unusual Wire Method:</strong> Asking for wire transfer instead of bank transfer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Legitimate Email</div>
+              <h4 class="example-title">Real Professional</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Hi Sarah, we received your job application for the Software Engineer position. We'd like to schedule an interview next week. Does Tuesday at 2pm EST work for you? Best, Jane from Acme Tech"</div>
+              <div class="example-analysis">
+                <div class="analysis-item">✅ <strong>Personal Details:</strong> Your name, specific role</div>
+                <div class="analysis-item">📅 <strong>Clear Time/Place:</strong> Specific date, time, timezone</div>
+                <div class="analysis-item">👤 <strong>Named Sender:</strong> Real person with company affiliation</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-header">
+              <div class="example-type">Misinformation</div>
+              <h4 class="example-title">False Claim</h4>
+            </div>
+            <div class="example-body">
+              <div class="example-message">"Studies prove vaccines contain microchips that track your location. Government is hiding this truth. Share this before THEY delete it!"</div>
+              <div class="example-analysis">
+                <div class="analysis-item">❌ <strong>False Claim:</strong> No credible evidence of microchips</div>
+                <div class="analysis-item">😨 <strong>Fear Tactics:</strong> "THEY", "hiding the truth"</div>
+                <div class="analysis-item">🚀 <strong>Urgency & Conspiracy:</strong> "Share before deleted"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What We Protect -->
+      <section class="protects">
+        <h3>What We Protect</h3>
+        <div class="cards">
+          <div class="card">
+            <h4>🔐 Your Identity</h4>
+            <p>Personal info, logins, credentials. Scammers steal these to impersonate you online.</p>
+          </div>
+          <div class="card">
+            <h4>💰 Your Money</h4>
+            <p>Fake job offers, prize scams, investment fraud. AI makes these more convincing than ever.</p>
+          </div>
+          <div class="card">
+            <h4>✨ Your Confidence</h4>
+            <p>Know what's real. Understand the tactics. Never second-guess yourself again.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>&copy; 2026 ScamSensei | Made for the Girls Who Code Challenge</p>
+      <p style="font-size:12px;margin-top:8px">This tool provides guidance, not guarantees. Always verify suspicious messages independently.</p>
+    </footer>
+
+    <button class="fab" id="fabBtn" onclick="event.stopPropagation(); toggleChatbot();" title="Ask ScamSensei">❓</button>
+    <div class="chatbot-panel" id="chatbotPanel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div class="chatbot-title">Ask ScamSensei</div>
+        <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chatbot">×</button>
+      </div>
+      <div class="chatbot-body">
+        <div class="chatbot-help">
+          <button class="chatbot-chip" onclick="sendHelpTopic('scam')">Common Scam Types</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('ai')">AI Detection Tips</button>
+          <button class="chatbot-chip" onclick="sendHelpTopic('url')">Website Analysis</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+      </div>
+      <form class="chatbot-input" id="chatbotForm" onsubmit="return sendChatMessage(event);">
+        <input type="text" id="chatbotInput" placeholder="Ask about scam safety or how ScamSensei works" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
   </body>
 </html>
