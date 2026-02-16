@@ -1,5 +1,5 @@
 // Global element references (populated when DOM is ready)
-let analyzeBtn, messageEl, websiteEl, resultEl, reasonsEl, meterFill, aiMeterFill;
+let analyzeBtn, messageEl, websiteEl, resultEl, reasonsEl, meterFill, aiMeterFill, aiMeterContainer;
 
 let currentMode = 'message'; // Track current analysis mode
 
@@ -19,7 +19,7 @@ function initModeToggle() {
   const websiteMode = document.getElementById('websiteMode');
   const exampleLabel = document.getElementById('exampleLabel');
   const exampleSelect = document.getElementById('exampleSelect');
-  const aiMeterContainer = document.getElementById('aiMeterContainer');
+  aiMeterContainer = document.getElementById('aiMeterContainer');
 
   if(modeMessageBtn && modeWebsiteBtn) {
     modeMessageBtn.addEventListener('click', () => {
