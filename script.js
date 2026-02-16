@@ -3,6 +3,18 @@ let analyzeBtn, messageEl, websiteEl, resultEl, reasonsEl, meterFill, aiMeterFil
 
 let currentMode = 'message'; // Track current analysis mode
 
+const urgencyWords = [
+  'urgent', 'act now', 'immediately', 'right now', 'limited time', 'expires soon',
+  'final notice', 'last chance', 'within 24 hours', 'account suspended', 'verify now',
+  'security alert', 'response required'
+];
+
+const personalRequests = [
+  'password', 'passcode', 'otp', 'verification code', 'ssn', 'social security',
+  'credit card', 'debit card', 'cvv', 'bank account', 'routing number',
+  'login credentials', 'private key', 'wallet seed', 'gift card'
+];
+
 // Wait for DOM to be ready before accessing elements
 function initModeToggle() {
   // Populate global element references
