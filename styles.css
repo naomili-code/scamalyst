@@ -159,6 +159,92 @@ main {
     margin-top: 0;
 }
 
+.about-readable {
+    padding-bottom: 3rem;
+}
+
+.about-hero-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.about-library-image {
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.about-hero-copy h3 {
+    margin-top: 0.2rem;
+}
+
+.about-hero-copy p,
+.about-story-card p,
+.about-focus-box p,
+.about-audience-card p {
+    margin: 0.35rem 0;
+}
+
+.about-story-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.about-story-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1rem 0.9rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.about-story-card h3 {
+    margin-top: 0;
+}
+
+.about-audience {
+    margin-bottom: 1.25rem;
+}
+
+.about-audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.9rem;
+}
+
+.about-audience-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem;
+}
+
+.about-audience-card h4 {
+    margin: 0 0 0.3rem;
+    color: var(--primary);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+}
+
+.about-focus-box {
+    background: linear-gradient(135deg, rgba(47,122,120,0.1), rgba(217,166,106,0.08));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
 h1 {
     font-family: var(--font-heading);
     font-size: 2.5rem;
