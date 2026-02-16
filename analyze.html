@@ -25,8 +25,8 @@
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem">
         <h2 class="page-header" style="margin:0">Analyze Content</h2>
         <div class="analysis-mode-toggle">
-          <button id="modeMessage" class="mode-btn active" data-mode="message">📧 Message</button>
-          <button id="modeWebsite" class="mode-btn" data-mode="website">🌐 Website</button>
+          <button id="modeMessage" class="mode-btn active" data-mode="message" type="button">📧 Message</button>
+          <button id="modeWebsite" class="mode-btn" data-mode="website" type="button">🌐 Website</button>
         </div>
       </div>
 
@@ -69,8 +69,8 @@
         </div>
 
         <div class="input-controls">
-          <button id="analyzeBtn" class="btn btn-primary" aria-label="Analyze the message for scams and AI">Analyze</button>
-          <button id="clearBtn" class="btn btn-secondary">Clear</button>
+          <button id="analyzeBtn" class="btn btn-primary" aria-label="Analyze the message for scams and AI" type="button" onclick="return runAnalysis(event)">Analyze</button>
+          <button id="clearBtn" class="btn btn-secondary" type="button">Clear</button>
           <label for="exampleSelect" style="margin-left:auto;display:none" id="exampleLabel">Try an example:</label>
           <select id="exampleSelect" style="display:none">
             <option value="">-- Choose an example --</option>

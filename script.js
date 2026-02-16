@@ -69,26 +69,7 @@ function initButtonListeners() {
   analyzeBtn = document.getElementById('analyzeBtn');
   
   if(analyzeBtn) {
-    analyzeBtn.addEventListener('click', () => {
-      if(currentMode === 'message') {
-        const text = messageEl.value;
-        if(!text.trim()) {
-          alert('Please paste a message to analyze.');
-          return;
-        }
-        const scamRes = analyzeMessage(text);
-        const aiRes = detectAI(text);
-        renderMessageResult(scamRes, aiRes);
-      } else if(currentMode === 'website') {
-        const input = websiteEl.value;
-        if(!input.trim()) {
-          alert('Please enter a website URL or HTML to analyze.');
-          return;
-        }
-        const websiteRes = analyzeWebsite(input);
-        renderWebsiteResult(websiteRes);
-      }
-    });
+    analyzeBtn.addEventListener('click', runAnalysis);
   }
 
   
@@ -1023,3 +1004,34 @@ function createThreatChart(flags) {
 function createTooltip(text, tooltip) {
   return `<span class="tooltip-trigger">${text}<span class="tooltip-text">${tooltip}</span></span>`;
 }
+
+function runAnalysis(event) {
+  if(event && typeof event.preventDefault === 'function') event.preventDefault();
+
+  if(currentMode === 'message') {
+    const text = messageEl ? messageEl.value : '';
+    if(!text.trim()) {
+      alert('Please paste a message to analyze.');
+      return false;
+    }
+    const scamRes = analyzeMessage(text);
+    const aiRes = detectAI(text);
+    renderMessageResult(scamRes, aiRes);
+    return false;
+  }
+
+  if(currentMode === 'website') {
+    const input = websiteEl ? websiteEl.value : '';
+    if(!input.trim()) {
+      alert('Please enter a website URL or HTML to analyze.');
+      return false;
+    }
+    const websiteRes = analyzeWebsite(input);
+    renderWebsiteResult(websiteRes);
+    return false;
+  }
+
+  return false;
+}
+
+window.runAnalysis = runAnalysis;
