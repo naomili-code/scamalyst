@@ -3,63 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>AI Scam Sensei — Demo</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>ScamSensei</title>
+    <meta http-equiv="refresh" content="0; url=home.html" />
+    <link rel="canonical" href="home.html" />
+    <script>
+      window.location.replace('home.html');
+    </script>
   </head>
   <body>
-    <main class="container">
-      <h1>AI Scam Sensei</h1>
-      <p class="lead">Paste a message (email, text, or DM) and get a risk score with human-readable reasons.</p>
-
-      <label for="message">Message to analyze</label>
-      <textarea id="message" rows="8" placeholder="Paste message text here..." aria-describedby="messageHint"></textarea>
-      <p id="messageHint" style="font-size:12px;color:#666">Tip: Try pasting AI-generated text, phishing messages, or human writing to see detection results.</p>
-
-      <div class="controls">
-        <button id="analyzeBtn" aria-label="Analyze the message for scams and AI">Analyze</button>
-        <label for="exampleSelect" style="margin-left:12px">Try an example:</label>
-        <select id="exampleSelect">
-          <option value="">-- Choose an example --</option>
-          <option value="scam">Phishing Scam</option>
-          <option value="ai-chatgpt">AI-Generated (ChatGPT)</option>
-          <option value="ai-formal">AI-Generated (Formal)</option>
-          <option value="human-casual">Human Writing (Casual)</option>
-          <option value="human-professional">Human Writing (Professional)</option>
-        </select>
-      </div>
-      
-
-      <section id="result" class="card hidden" aria-live="polite" aria-label="Analysis results">
-        <h2 id="verdict" role="status"></h2>
-        
-        <div style="margin-top:12px">
-          <p style="margin-bottom:4px"><strong>Scam Risk Score:</strong></p>
-          <div class="meter" aria-label="Scam risk meter">y
-            <div id="meterFill" class="meter-fill" style="background:linear-gradient(90deg,#2ecc71,#f1c40f,#e74c3c)"></div>
-          </div>
-        </div>
-        
-        <div style="margin-top:12px">
-          <p style="margin-bottom:4px"><strong>AI Likelihood Score:</strong></p>
-          <div class="meter" aria-label="AI likelihood meter">
-            <div id="aiMeterFill" class="meter-fill" style="background:linear-gradient(90deg,#3498db,#9b59b6)"></div>
-          </div>
-        </div>
-        
-        <p style="margin-top:12px"><strong>Numeric Scores:</strong> <span id="score" role="status">0</span></p>
-        <ul id="reasons" role="region" aria-label="Detection reasons"></ul>
-        <details>
-          <summary>Notes</summary>
-          <p>This demo uses explainable heuristics to analyze messages. No external model calls are required.</p>
-        </details>
-      </section>
-
-      <section class="notes">
-        <h3>About</h3>
-        <p>This demo combines explainable heuristics with optional model output to help people spot scams. It's an educational tool, not a definitive detector.</p>
-      </section>
-    </main>
-
-    <script src="script.js"></script>
+    <p>Redirecting to <a href="home.html">ScamSensei Home</a>...</p>
   </body>
 </html>
