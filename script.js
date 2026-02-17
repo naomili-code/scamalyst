@@ -1014,7 +1014,7 @@ function getHelpText(topic) {
     url: 'SUSPICIOUS WEBSITE RED FLAGS\n\n- Misspelled domain names\n- Missing HTTPS or strange redirects\n- No contact info or privacy policy\n- Low-quality images or sloppy design\n- "Too good to be true" pricing\n- Only accepts crypto, gift cards, or wire\n- Newly created domain\n- Excessive pop-ups or forced downloads'
   };
 
-  return helpTopics[topic] || 'Ask a question about scam safety or how ScamSensei works.';
+  return helpTopics[topic] || 'Ask a question about scam safety or how FraudLens works.';
 }
 
 function openChatbot() {
@@ -1025,7 +1025,7 @@ function openChatbot() {
 
   const messages = document.getElementById('chatbotMessages');
   if(messages && messages.children.length === 0) {
-    appendChatMessage('bot', 'Ask about scam safety or how ScamSensei works. This FAQ bot answers common questions.');
+    appendChatMessage('bot', 'Ask about scam safety or how FraudLens works. This FAQ bot answers common questions.');
   }
 
   const input = document.getElementById('chatbotInput');
@@ -1065,8 +1065,8 @@ function localChatReply(userText) {
   const text = (userText || '').toLowerCase();
 
   const replies = [
-    { keys: ['what is scamsensei', 'what does this site do', 'what is this'],
-      answer: 'ScamSensei helps you spot scam patterns and teaches red flags in messages and websites. Use Analyze for a quick check and Practice for examples.' },
+    { keys: ['what is scamsensei', 'what is fraudlens', 'what does this site do', 'what is this'],
+      answer: 'FraudLens helps you spot scam patterns and teaches red flags in messages and websites. Use Analyze for a quick check and Practice for examples.' },
     { keys: ['how does it work', 'how do i use', 'how to use'],
       answer: 'Paste a message or URL into Analyze. You will get a risk score and red flags. Practice Mode shows examples and explanations.' },
     { keys: ['analyze', 'analysis', 'scanner'],
@@ -1089,7 +1089,7 @@ function localChatReply(userText) {
     if(rule.keys.some(k => text.includes(k))) return rule.answer;
   }
 
-  return 'I can help with scam safety and using ScamSensei. Try asking about phishing, suspicious websites, AI-generated text, or how to use Analyze/Practice.';
+  return 'I can help with scam safety and using FraudLens. Try asking about phishing, suspicious websites, AI-generated text, or how to use Analyze/Practice.';
 }
 
 async function callChatbot(userText) {
