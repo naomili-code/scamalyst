@@ -94,6 +94,17 @@ body {
     background-clip: revert;
 }
 
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    margin-right: 0.45rem;
+}
+
+.logo-text {
+    display: inline-block;
+}
+
 .nav-links {
     display: flex;
     list-style: none;

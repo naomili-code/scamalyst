@@ -338,7 +338,7 @@ function renderMessageResult(scamRes, aiRes){
     const scamType = classifyScamType(messageEl.value, scamRes.reasons, scamRes.score);
     renderScamTypeInsight(scamType, scamRes.score);
     renderSafetyActions(scamType.type, scamRes.score);
-    renderHighlightedPreview(messageEl.value);
+    renderHighlightedPreview(messageEl.value, scamType.type, scamRes.score);
   }
 }
 
@@ -551,9 +551,17 @@ function escapeHtml(text) {
     .replace(/'/g, '&#39;');
 }
 
-function renderHighlightedPreview(text) {
+function renderHighlightedPreview(text, type, score) {
+  const cardEl = document.getElementById('highlightedPhrasesCard');
   const previewEl = document.getElementById('flaggedMessagePreview');
   if(!previewEl) return;
+
+  const show = hasActionableScamType(type, score);
+  if(cardEl) cardEl.classList.toggle('hidden', !show);
+  if(!show) {
+    previewEl.textContent = '';
+    return;
+  }
 
   const raw = (text || '').trim();
   if(!raw) {
