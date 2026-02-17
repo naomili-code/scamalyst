@@ -166,6 +166,76 @@ function analyzeMessage(text){
     score += 2; reasons.push('Asks to click a link, verify, or download — common in phishing');
   }
 
+  // Attachment risk analyzer
+  const dangerousAttachment = /\b[\w\- ]+\.(exe|scr|bat|cmd|com|js|vbs|jar|msi|iso|dll)\b/i;
+  const macroAttachment = /\b[\w\- ]+\.(docm|xlsm|pptm)\b/i;
+  const doubleExtension = /\b[\w\- ]+\.(pdf|doc|docx|xls|xlsx|jpg|png)\.(exe|scr|bat|cmd|js|vbs)\b/i;
+  const attachmentLure = /\b(attached|attachment|invoice attached|open the file|enable macros|download file)\b/i;
+
+  if(dangerousAttachment.test(text)) {
+    score += 3;
+    reasons.push('Attachment risk: message references potentially dangerous file types');
+  }
+  if(macroAttachment.test(text) || /enable content|enable editing|enable macro/i.test(lower)) {
+    score += 2;
+    reasons.push('Attachment risk: macro-enabled document or macro prompt detected');
+  }
+  if(doubleExtension.test(text)) {
+    score += 3;
+    reasons.push('Attachment risk: suspicious double-extension filename detected');
+  }
+  if(attachmentLure.test(lower) && /urgent|immediately|asap|today|final notice/i.test(lower)) {
+    score += 1;
+    reasons.push('Attachment risk: urgent pressure to open or download a file');
+  }
+
+  // Sender identity check (heuristic mismatch)
+  const emailMatch = text.match(/[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,})/i);
+  if(emailMatch) {
+    const senderDomain = (emailMatch[1] || '').toLowerCase();
+    const brandDomainMap = {
+      'paypal': 'paypal.com',
+      'amazon': 'amazon.com',
+      'apple': 'apple.com',
+      'microsoft': 'microsoft.com',
+      'google': 'google.com',
+      'bank of america': 'bankofamerica.com',
+      'chase': 'chase.com',
+      'wells fargo': 'wellsfargo.com'
+    };
+
+    for(const [brand, expectedDomain] of Object.entries(brandDomainMap)) {
+      if(lower.includes(brand) && !senderDomain.includes(expectedDomain)) {
+        score += 2;
+        reasons.push(`Sender identity mismatch: claims "${brand}" but sender domain is "${senderDomain}"`);
+        break;
+      }
+    }
+  }
+
+  // Invoice/payment scam detector
+  const invoiceTerms = /\b(invoice|payment|past due|overdue|billing|wire transfer|bank transfer|outstanding balance|accounts payable)\b/i;
+  const riskyPayment = /\b(gift card|crypto|bitcoin|ethereum|wire|zelle|cash app|venmo)\b/i;
+  const accountChange = /\b(updated bank details|new bank account|change in payment details|send payment to this account)\b/i;
+  const noVerification = /\b(do not call|no need to verify|confidential payment request|keep this between us)\b/i;
+
+  if(invoiceTerms.test(text) && riskyPayment.test(text)) {
+    score += 3;
+    reasons.push('Payment scam pattern: invoice/payment request with high-risk payment method');
+  }
+  if(accountChange.test(lower)) {
+    score += 2;
+    reasons.push('Payment scam pattern: sudden request to change payment destination');
+  }
+  if(invoiceTerms.test(text) && /urgent|immediate|today|within 24 hours|final notice/i.test(lower)) {
+    score += 1;
+    reasons.push('Payment scam pattern: urgency tied to billing or invoice request');
+  }
+  if(noVerification.test(lower)) {
+    score += 2;
+    reasons.push('Payment scam pattern: discourages independent verification');
+  }
+
   // Heuristic verdict
   let verdict = 'Likely Safe';
   if(score >= 7) verdict = 'Likely Scam';
