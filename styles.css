@@ -2152,3 +2152,70 @@ body.dark-mode .red-flags-list li {
 .page-header {
     margin-top: 1rem;
 }
+
+.message-insights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.insight-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.insight-card h4 {
+    margin: 0 0 0.6rem;
+    color: var(--primary);
+}
+
+.insight-main {
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.35rem;
+}
+
+.insight-sub {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.safety-actions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.safety-actions-list li {
+    padding: 0.55rem 0.65rem;
+    border-radius: 8px;
+    background: rgba(47, 122, 120, 0.08);
+    border-left: 3px solid var(--primary);
+    font-size: 0.92rem;
+}
+
+.flagged-message-preview {
+    min-height: 80px;
+    border-radius: 8px;
+    padding: 0.75rem;
+    background: rgba(0,0,0,0.03);
+    border: 1px solid var(--border);
+    white-space: pre-wrap;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.risk-highlight {
+    background: rgba(231, 76, 60, 0.22);
+    color: inherit;
+    border-radius: 4px;
+    padding: 0 2px;
+}

@@ -330,6 +330,16 @@ function renderMessageResult(scamRes, aiRes){
   }
   
   // Threat breakdown chart removed for clarity
+
+  const messageInsights = document.getElementById('messageInsights');
+  if(messageInsights) messageInsights.classList.remove('hidden');
+
+  if(messageEl) {
+    const scamType = classifyScamType(messageEl.value, scamRes.reasons);
+    renderScamTypeInsight(scamType);
+    renderSafetyActions(scamType.type, scamRes.score);
+    renderHighlightedPreview(messageEl.value);
+  }
 }
 
 function renderWebsiteResult(websiteRes) {
@@ -396,6 +406,152 @@ function renderWebsiteResult(websiteRes) {
   }
   
   // Threat breakdown chart removed for clarity
+
+  const messageInsights = document.getElementById('messageInsights');
+  if(messageInsights) messageInsights.classList.add('hidden');
+}
+
+function classifyScamType(text, reasons = []) {
+  const lower = (text || '').toLowerCase();
+  const typeScores = {
+    phishing: 0,
+    attachment: 0,
+    payment: 0,
+    impersonation: 0
+  };
+
+  if(/verify|account suspended|security alert|click here|login/i.test(lower)) typeScores.phishing += 2;
+  if(/https?:\/\/|bit\.ly|tinyurl|t\.co|goo\.gl|is\.gd/i.test(lower)) typeScores.phishing += 1;
+
+  if(/\.(exe|scr|bat|cmd|com|js|vbs|jar|msi|iso|dll|docm|xlsm|pptm)\b/i.test(lower)) typeScores.attachment += 3;
+  if(/attachment|attached|open the file|enable macro|enable content/i.test(lower)) typeScores.attachment += 2;
+
+  if(/invoice|payment|past due|overdue|wire transfer|bank transfer|billing/i.test(lower)) typeScores.payment += 2;
+  if(/gift card|crypto|bitcoin|zelle|venmo|cash app|updated bank details|new bank account/i.test(lower)) typeScores.payment += 2;
+
+  if(/from:\s*\w+|dear customer|dear valued customer|official notice/i.test(lower)) typeScores.impersonation += 1;
+  if(/paypal|amazon|apple|microsoft|google|bank of america|chase|wells fargo/i.test(lower)) typeScores.impersonation += 1;
+  if(reasons.some(r => /mismatch|official address/i.test(r))) typeScores.impersonation += 2;
+
+  let type = 'phishing';
+  let score = -1;
+  for(const [candidate, candidateScore] of Object.entries(typeScores)) {
+    if(candidateScore > score) {
+      type = candidate;
+      score = candidateScore;
+    }
+  }
+
+  const labels = {
+    phishing: {
+      label: 'Phishing / Credential Theft',
+      detail: 'This message pushes verification or link-click behavior to steal credentials.'
+    },
+    attachment: {
+      label: 'Malicious Attachment Lure',
+      detail: 'This message pressures the target to open a risky file or enable dangerous content.'
+    },
+    payment: {
+      label: 'Invoice / Payment Diversion Scam',
+      detail: 'This message attempts to redirect money through urgent or unverified payment instructions.'
+    },
+    impersonation: {
+      label: 'Brand / Identity Impersonation',
+      detail: 'This message appears to imitate a trusted person or organization.'
+    }
+  };
+
+  return { type, ...labels[type] };
+}
+
+function renderScamTypeInsight(scamType) {
+  const labelEl = document.getElementById('scamTypeLabel');
+  const detailEl = document.getElementById('scamTypeDetail');
+  if(labelEl) labelEl.textContent = scamType.label;
+  if(detailEl) detailEl.textContent = scamType.detail;
+}
+
+function getSafetyActionsByType(type, score) {
+  const baseActions = [
+    'Do not click links or open attachments from this message.',
+    'Verify the request through an official channel you look up yourself.',
+    'Report and block the sender if the message is untrusted.'
+  ];
+
+  const typeActions = {
+    attachment: [
+      'Do not download or open the attached file.',
+      'Never enable macros or “Enable Content” for untrusted files.',
+      'Scan the file with antivirus before opening anything.'
+    ],
+    payment: [
+      'Pause payment and confirm by calling a verified number.',
+      'Do not send money via gift cards, wire, or crypto for urgent requests.',
+      'Confirm bank detail changes with a known contact at the organization.'
+    ],
+    impersonation: [
+      'Check the sender domain carefully for lookalikes or misspellings.',
+      'Contact the real organization directly from its official website.',
+      'Do not share OTPs, passwords, or account details.'
+    ],
+    phishing: [
+      'Do not sign in from links in the message.',
+      'Open the official website manually in a new tab.',
+      'Change passwords if you already clicked a suspicious link.'
+    ]
+  };
+
+  const actions = [...(typeActions[type] || typeActions.phishing), ...baseActions];
+  if(score >= 7) actions.unshift('Treat this as high risk and stop interacting immediately.');
+  return Array.from(new Set(actions)).slice(0, 5);
+}
+
+function renderSafetyActions(type, score) {
+  const listEl = document.getElementById('safetyActionsList');
+  if(!listEl) return;
+  listEl.innerHTML = '';
+
+  const actions = getSafetyActionsByType(type, score);
+  actions.forEach(action => {
+    const li = document.createElement('li');
+    li.textContent = action;
+    listEl.appendChild(li);
+  });
+}
+
+function escapeHtml(text) {
+  return (text || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function renderHighlightedPreview(text) {
+  const previewEl = document.getElementById('flaggedMessagePreview');
+  if(!previewEl) return;
+
+  const raw = (text || '').trim();
+  if(!raw) {
+    previewEl.textContent = 'Paste a message to see highlighted risk phrases.';
+    return;
+  }
+
+  let safe = escapeHtml(raw.length > 1800 ? raw.slice(0, 1800) + '…' : raw);
+  const highlightPatterns = [
+    /(urgent|immediately|act now|final notice|within 24 hours|security alert)/gi,
+    /(password|otp|verification code|ssn|credit card|bank account|routing number)/gi,
+    /(click here|verify your account|download attached|enable macro|enable content)/gi,
+    /(wire transfer|gift card|crypto|bitcoin|zelle|venmo|cash app)/gi,
+    /(https?:\/\/[^\s]+|bit\.ly\/[\w-]+|tinyurl\/[\w-]+)/gi
+  ];
+
+  highlightPatterns.forEach(pattern => {
+    safe = safe.replace(pattern, '<mark class="risk-highlight">$1</mark>');
+  });
+
+  previewEl.innerHTML = safe;
 }
 
 // Example messages object

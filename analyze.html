@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Analyze Messages — ScamSensei</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js?v=20260216b"></script>
+    <script src="script.js?v=20260217a"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -47,7 +47,7 @@
           </div>
           <label for="message">Your Message</label>
           <textarea id="message" rows="10" placeholder="Paste an email, text, DM, or social media message here..." aria-describedby="messageHint"></textarea>
-          <p id="messageHint" style="font-size:12px;color:#666;margin-top:8px">Tip: This analyzer now checks attachment risk, sender-identity mismatch, and invoice/payment scam patterns too.</p>
+          <p id="messageHint" style="font-size:12px;color:#666;margin-top:8px">Tip: This analyzer checks attachment risk, sender-identity mismatch, and invoice/payment scam patterns.</p>
         </div>
 
         <div id="websiteMode" class="analysis-mode hidden">
@@ -110,6 +110,24 @@
         <div class="red-flags-section">
           <h4>🚩 Red Flags Detected</h4>
           <ul id="reasons" role="region" aria-label="Detection reasons" class="red-flags-list"></ul>
+        </div>
+
+        <div id="messageInsights" class="message-insights hidden" aria-label="Message insights">
+          <div class="insight-card">
+            <h4>🎯 Likely Scam Type</h4>
+            <p id="scamTypeLabel" class="insight-main">—</p>
+            <p id="scamTypeDetail" class="insight-sub">Run analysis to classify this message.</p>
+          </div>
+
+          <div class="insight-card">
+            <h4>✅ What To Do Next</h4>
+            <ul id="safetyActionsList" class="safety-actions-list"></ul>
+          </div>
+
+          <div class="insight-card">
+            <h4>🖍️ Highlighted Risk Phrases</h4>
+            <div id="flaggedMessagePreview" class="flagged-message-preview"></div>
+          </div>
         </div>
 
       </section>
