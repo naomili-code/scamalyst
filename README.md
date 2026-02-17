@@ -66,10 +66,10 @@ Identifies AI-generated text using 9 heuristics:
 
 ### Option 1: Python HTTP Server (Recommended)
 ```bash
-cd c:\Users\Naomi\Desktop\HTML\ai_scam_sensei
+cd c:\Users\Naomi\Desktop\HTML\scamalyst
 py -3 -m http.server 8000
 ```
-Then open `http://localhost:8000/home.html` in your browser.
+Then open `http://localhost:8000/` (or `http://localhost:8000/home.html`) in your browser.
 
 ### Option 2: Live Server (VS Code Extension)
 1. Install "Live Server" extension in VS Code
@@ -81,15 +81,17 @@ Open any `.html` file directly in your browser (some features may not work due t
 ## 📁 Project Structure
 
 ```
-ai_scam_sensei/
+scamalyst/
+├── index.html          # Main entry page
 ├── home.html           # Landing page
 ├── analyze.html        # Main tool
 ├── practice.html       # Practice mode
-├── about.html          # Ethics & transparency
+├── about.html          # Project story and mission
+├── ethics.html         # Ethics and transparency
 ├── styles.css          # Comprehensive styling (600+ lines)
 ├── script.js           # Analyzer logic (220+ lines)
 ├── README.md           # This file
-├── PROJECT_PITCH.md    # Full submission narrative
+├── PROJECT_STATUS.md   # Build and testing status
 ├── GITHUB_PAGES_SETUP.md # Deployment instructions
 └── pexels-googledeepmind-17485706.jpg # Background image
 ```
@@ -155,7 +157,7 @@ See `GITHUB_PAGES_SETUP.md` for step-by-step instructions.
 In short:
 1. Push to GitHub
 2. Enable Pages in repo settings
-3. Site is live at `https://YOUR-USERNAME.github.io/scamalyst/`
+3. Site is live at `https://naomili-code.github.io/scamalyst/`
 
 ## 📝 License
 

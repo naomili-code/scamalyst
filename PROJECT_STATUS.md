@@ -35,7 +35,7 @@
 
 ### ✅ Documentation
 - [x] README.md (comprehensive project overview)
-- [x] PROJECT_PITCH.md (full GWC submission narrative)
+- [x] PROJECT_STATUS.md (full status and testing narrative)
 - [x] GITHUB_PAGES_SETUP.md (deployment instructions)
 
 ### ✅ Code Quality
@@ -147,7 +147,7 @@ Scores messages 0-1 (normalized to 0-100%) using:
 | styles.css | 600+ | Complete responsive styling |
 | script.js | 220+ | Analyzer logic with dual detection |
 | README.md | 200+ | Project documentation |
-| PROJECT_PITCH.md | 300+ | Full GWC submission narrative |
+| PROJECT_STATUS.md | 300+ | Full status and testing narrative |
 | GITHUB_PAGES_SETUP.md | 100+ | Deployment instructions |
 
 **Total:** ~2000 lines of code (HTML + CSS + JS)
@@ -260,17 +260,17 @@ py -3 -m http.server 8000
    git add .
    git commit -m "Scamalyst - GWC submission"
    git branch -M main
-   git remote add origin https://github.com/YOUR-USERNAME/scamalyst.git
+   git remote add origin https://github.com/naomili-code/scamalyst.git
    git push -u origin main
    ```
 
 2. **Enable GitHub Pages**
    - Settings → Pages → Source: main branch → Save
    - Wait 1-2 minutes for deployment
-   - Visit: https://YOUR-USERNAME.github.io/scamalyst/
+   - Visit: https://naomili-code.github.io/scamalyst/
 
 3. **Submit to GWC**
-   - Update PROJECT_PITCH.md with live link
+   - Update README.md with live link
    - Include screenshot of app working
    - Submit before Feb 18, 2026 deadline
 
@@ -314,7 +314,7 @@ Unlike most GWC submissions:
 - [ ] Responsive design works on mobile
 - [ ] No console errors (F12 DevTools)
 - [ ] README clearly explains project
-- [ ] PROJECT_PITCH.md covers all judging criteria
+- [ ] README.md and PROJECT_STATUS.md cover all judging criteria
 - [ ] GITHUB_PAGES_SETUP.md has clear instructions
 - [ ] GitHub Pages is live and working
 - [ ] Live link is added to submission

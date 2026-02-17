@@ -15,7 +15,7 @@
 In PowerShell, navigate to your project folder:
 
 ```powershell
-cd C:\Users\Naomi\Desktop\HTML\ai_scam_sensei
+cd C:\Users\Naomi\Desktop\HTML\scamalyst
 
 # Initialize git (if not already done)
 git init
@@ -29,12 +29,10 @@ git add .
 git commit -m "Initial commit: Scamalyst MVP"
 
 # Add remote and push
-git remote add origin https://github.com/YOUR-USERNAME/scamalyst.git
+git remote add origin https://github.com/naomili-code/scamalyst.git
 git branch -M main
 git push -u origin main
 ```
-
-Replace `YOUR-USERNAME` with your actual GitHub username.
 
 ### Step 3: Enable GitHub Pages
 
@@ -44,7 +42,7 @@ Replace `YOUR-USERNAME` with your actual GitHub username.
 4. Select **main** branch and **/root** folder.
 5. Click **Save**.
 6. Wait 1–2 minutes for the build.
-7. Your site will be live at: `https://YOUR-USERNAME.github.io/scamalyst/`
+7. Your site will be live at: `https://naomili-code.github.io/scamalyst/`
 
 ---
 
@@ -58,7 +56,7 @@ scamalyst/
 ├── styles.css          (styling)
 ├── script.js           (logic)
 ├── README.md           (project overview)
-├── PROJECT_PITCH.md    (submission pitch)
+├── PROJECT_STATUS.md   (project status)
 └── .gitignore          (optional: exclude files)
 ```
 
@@ -68,7 +66,7 @@ GitHub Pages will automatically serve `index.html` as the root.
 
 ## Testing Your Live Site
 
-1. Open the URL: `https://YOUR-USERNAME.github.io/scamalyst/`
+1. Open the URL: `https://naomili-code.github.io/scamalyst/`
 2. Try the example dropdown and click Analyze.
 3. Share the link with others—it's live and doesn't require any server!
 
@@ -83,7 +81,7 @@ Add a clear summary at the top of `README.md`:
 
 A web-based tool that detects AI-generated phishing scams and helps users protect their identities.
 
-**Try it live:** [GitHub Pages Link](https://YOUR-USERNAME.github.io/scamalyst/)
+**Try it live:** [GitHub Pages Link](https://naomili-code.github.io/scamalyst/)
 
 ## Features
 
@@ -100,9 +98,9 @@ A web-based tool that detects AI-generated phishing scams and helps users protec
 3. Click "Analyze"
 4. See scam risk + AI likelihood with reasons
 
-## For GWC Challenge Judges
+## Project Notes
 
-See [PROJECT_PITCH.md](PROJECT_PITCH.md) for full submission details, technical approach, and judging criteria alignment.
+See [PROJECT_STATUS.md](PROJECT_STATUS.md) for implementation details and deployment readiness.
 ```
 
 ---
@@ -131,7 +129,7 @@ Before submitting to the challenge, ensure:
 - [ ] Site is live on GitHub Pages
 - [ ] All features work (examples, Analyze button, both meters)
 - [ ] README explains the project clearly
-- [ ] PROJECT_PITCH.md covers problem, solution, impact
+- [ ] PROJECT_STATUS.md covers problem, solution, and impact
 - [ ] Code is clean and commented (especially AI detection logic)
 - [ ] No API keys or secrets committed
 - [ ] Accessibility tested (keyboard nav, screen reader friendly)
