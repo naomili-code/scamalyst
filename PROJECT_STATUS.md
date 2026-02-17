@@ -260,14 +260,14 @@ py -3 -m http.server 8000
    git add .
    git commit -m "Scamalyst - GWC submission"
    git branch -M main
-   git remote add origin https://github.com/naomili-code/scamalyst.git
+   git remote add origin https://github.com/YOUR-USERNAME/scamalyst.git
    git push -u origin main
    ```
 
 2. **Enable GitHub Pages**
    - Settings → Pages → Source: main branch → Save
    - Wait 1-2 minutes for deployment
-   - Visit: https://naomili-code.github.io/scamalyst/
+   - Visit: https://YOUR-USERNAME.github.io/scamalyst/
 
 3. **Submit to GWC**
    - Update README.md with live link

@@ -66,7 +66,7 @@ Identifies AI-generated text using 9 heuristics:
 
 ### Option 1: Python HTTP Server (Recommended)
 ```bash
-cd c:\Users\Naomi\Desktop\HTML\scamalyst
+cd C:\path\to\scamalyst
 py -3 -m http.server 8000
 ```
 Then open `http://localhost:8000/` (or `http://localhost:8000/home.html`) in your browser.
@@ -157,7 +157,7 @@ See `GITHUB_PAGES_SETUP.md` for step-by-step instructions.
 In short:
 1. Push to GitHub
 2. Enable Pages in repo settings
-3. Site is live at `https://naomili-code.github.io/scamalyst/`
+3. Site is live at `https://YOUR-USERNAME.github.io/scamalyst/`
 
 ## 📝 License
 
@@ -165,7 +165,7 @@ Open source for educational use. Feel free to fork, modify, and improve!
 
 ## 🙌 Credits
 
-- **Naomi** — Developer
+- **Project developer**
 - **Pexels** — Background image
 - **Everyone who reported phishing attempts** — Your real-world examples made this possible
 

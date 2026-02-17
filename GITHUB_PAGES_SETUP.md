@@ -15,7 +15,7 @@
 In PowerShell, navigate to your project folder:
 
 ```powershell
-cd C:\Users\Naomi\Desktop\HTML\scamalyst
+cd C:\path\to\scamalyst
 
 # Initialize git (if not already done)
 git init
@@ -29,7 +29,7 @@ git add .
 git commit -m "Initial commit: Scamalyst MVP"
 
 # Add remote and push
-git remote add origin https://github.com/naomili-code/scamalyst.git
+git remote add origin https://github.com/YOUR-USERNAME/scamalyst.git
 git branch -M main
 git push -u origin main
 ```
@@ -42,7 +42,7 @@ git push -u origin main
 4. Select **main** branch and **/root** folder.
 5. Click **Save**.
 6. Wait 1–2 minutes for the build.
-7. Your site will be live at: `https://naomili-code.github.io/scamalyst/`
+7. Your site will be live at: `https://YOUR-USERNAME.github.io/scamalyst/`
 
 ---
 
@@ -66,7 +66,7 @@ GitHub Pages will automatically serve `index.html` as the root.
 
 ## Testing Your Live Site
 
-1. Open the URL: `https://naomili-code.github.io/scamalyst/`
+1. Open the URL: `https://YOUR-USERNAME.github.io/scamalyst/`
 2. Try the example dropdown and click Analyze.
 3. Share the link with others—it's live and doesn't require any server!
 
@@ -81,7 +81,7 @@ Add a clear summary at the top of `README.md`:
 
 A web-based tool that detects AI-generated phishing scams and helps users protect their identities.
 
-**Try it live:** [GitHub Pages Link](https://naomili-code.github.io/scamalyst/)
+**Try it live:** [GitHub Pages Link](https://YOUR-USERNAME.github.io/scamalyst/)
 
 ## Features
 
