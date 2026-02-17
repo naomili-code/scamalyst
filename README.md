@@ -2,7 +2,7 @@
 
 **Learn to spot phishing scams AND AI-generated text before they fool you.**
 
-Scamalyst is a free, open-source educational tool built for the Girls Who Code AI + Cybersecurity Challenge. It uses rule-based heuristics to detect both phishing scams and AI-generated text in emails, social media messages, and other communications.
+Scamalyst is a free, open-source educational tool that helps users detect both phishing scams and AI-generated text in emails, social media messages, and other communications.
 
 ## 🎯 The Problem
 
@@ -139,14 +139,14 @@ Unlike a simple "yes/no" detector, Scamalyst:
 4. **No ML** — Rule-based heuristics, not machine learning (simpler & more explainable)
 5. **False positives possible** — Always verify suspicious messages independently
 
-## 🏆 For the GWC Challenge
+## 🏆 Project Highlights
 
-This project addresses the challenge themes:
-- **AI & Cybersecurity** — Detects both phishing scams AND AI-generated text
-- **Real-world impact** — Protects identity, money, and peace of mind
-- **High school appropriate** — Clear, accessible, engaging UI
-- **Ethical approach** — Transparent about what it does and doesn't do
-- **Scalable** — Can be deployed free on GitHub Pages
+This project emphasizes:
+- **AI + Cybersecurity** — Detects both phishing scams and AI-generated text
+- **Real-world impact** — Helps protect identity, money, and peace of mind
+- **Accessible UX** — Clear, approachable language for broad audiences
+- **Ethical approach** — Transparent about capabilities and limitations
+- **Scalable deployment** — Can be hosted for free on GitHub Pages
 
 ## 🚀 Deployment (GitHub Pages)
 
@@ -163,7 +163,6 @@ Open source for educational use. Feel free to fork, modify, and improve!
 
 ## 🙌 Credits
 
-- **Girls Who Code** — Challenge inspiration
 - **Naomi** — Developer
 - **Pexels** — Background image
 - **Everyone who reported phishing attempts** — Your real-world examples made this possible
@@ -171,4 +170,4 @@ Open source for educational use. Feel free to fork, modify, and improve!
 ---
 
 **Last Updated:** February 2026  
-**Status:** Competition-ready ✨
+**Status:** Actively maintained ✨
