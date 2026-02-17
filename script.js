@@ -563,6 +563,37 @@ Your account has been SUSPENDED immediately. Verify your account now by clicking
 No response within 24 hours will result in termination.
 
 Security Team`,
+
+  'attachment-lure': `Subject: URGENT Payroll Correction Required
+
+Hi,
+
+Please review the attached file payroll_update_2026.pdf.exe and confirm immediately.
+If you cannot open it, enable macros and click "Enable Content".
+This must be completed today to avoid payment delay.
+
+Finance Desk`,
+
+  'sender-mismatch': `From: PayPal Support <alerts@secure-paypal-check.com>
+
+Dear customer,
+
+We detected unusual activity in your PayPal account.
+Verify your identity now at https://bit.ly/paypal-secure-check within 24 hours
+or your account will be suspended.
+
+PayPal Security Team`,
+
+  'invoice-diversion': `Subject: Updated banking details for Invoice #88421
+
+Hi Accounts Payable,
+
+Please process the outstanding invoice today via wire transfer using our NEW bank account details below.
+Do not call to verify due to an ongoing internal audit.
+If payment is delayed, late penalties will apply immediately.
+
+Regards,
+Vendor Billing`,
   
   'ai-chatgpt': `As an AI language model, I must clarify that cybersecurity is a critical topic. The landscape of digital threats has evolved significantly. It is important to note that protecting personal information requires multiple layers of defense. Per my programming, I should mention that best practices include using strong passwords, enabling two-factor authentication, and staying informed about phishing attempts.`,
   
