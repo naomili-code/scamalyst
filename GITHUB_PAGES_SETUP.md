@@ -1,11 +1,11 @@
-# Deploy AI Scam Sensei to GitHub Pages
+# Deploy Scamalyst to GitHub Pages
 
 ## Quick Start (5 minutes)
 
 ### Step 1: Create a GitHub Repository
 
 1. Go to [github.com/new](https://github.com/new).
-2. Name it: `ai-scam-sensei` (or your preferred name).
+2. Name it: `scamalyst` (or your preferred name).
 3. Make it **Public** (required for free GitHub Pages).
 4. Leave other settings as default.
 5. Click **Create repository**.
@@ -26,10 +26,10 @@ git config user.email "your-email@example.com"
 git add .
 
 # Commit
-git commit -m "Initial commit: AI Scam Sensei MVP"
+git commit -m "Initial commit: Scamalyst MVP"
 
 # Add remote and push
-git remote add origin https://github.com/YOUR-USERNAME/ai-scam-sensei.git
+git remote add origin https://github.com/YOUR-USERNAME/scamalyst.git
 git branch -M main
 git push -u origin main
 ```
@@ -44,7 +44,7 @@ Replace `YOUR-USERNAME` with your actual GitHub username.
 4. Select **main** branch and **/root** folder.
 5. Click **Save**.
 6. Wait 1–2 minutes for the build.
-7. Your site will be live at: `https://YOUR-USERNAME.github.io/ai-scam-sensei/`
+7. Your site will be live at: `https://YOUR-USERNAME.github.io/scamalyst/`
 
 ---
 
@@ -53,7 +53,7 @@ Replace `YOUR-USERNAME` with your actual GitHub username.
 Your repo should look like this:
 
 ```
-ai-scam-sensei/
+scamalyst/
 ├── index.html          (main page)
 ├── styles.css          (styling)
 ├── script.js           (logic)
@@ -68,7 +68,7 @@ GitHub Pages will automatically serve `index.html` as the root.
 
 ## Testing Your Live Site
 
-1. Open the URL: `https://YOUR-USERNAME.github.io/ai-scam-sensei/`
+1. Open the URL: `https://YOUR-USERNAME.github.io/scamalyst/`
 2. Try the example dropdown and click Analyze.
 3. Share the link with others—it's live and doesn't require any server!
 
@@ -79,11 +79,11 @@ GitHub Pages will automatically serve `index.html` as the root.
 Add a clear summary at the top of `README.md`:
 
 ```markdown
-# AI Scam Sensei
+# Scamalyst
 
 A web-based tool that detects AI-generated phishing scams and helps users protect their identities.
 
-**Try it live:** [GitHub Pages Link](https://YOUR-USERNAME.github.io/ai-scam-sensei/)
+**Try it live:** [GitHub Pages Link](https://YOUR-USERNAME.github.io/scamalyst/)
 
 ## Features
 

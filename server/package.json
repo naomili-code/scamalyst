@@ -1,5 +1,5 @@
 {
-  "name": "ai-scam-sensei-proxy",
+  "name": "scamalyst-proxy",
   "version": "1.0.0",
   "description": "Small proxy to forward model requests to Hugging Face securely",
   "main": "index.js",

@@ -1,8 +1,8 @@
-# 🧠 AI Scam Sensei
+# 🧠 Scamalyst
 
 **Learn to spot phishing scams AND AI-generated text before they fool you.**
 
-AI Scam Sensei is a free, open-source educational tool built for the Girls Who Code AI + Cybersecurity Challenge. It uses rule-based heuristics to detect both phishing scams and AI-generated text in emails, social media messages, and other communications.
+Scamalyst is a free, open-source educational tool built for the Girls Who Code AI + Cybersecurity Challenge. It uses rule-based heuristics to detect both phishing scams and AI-generated text in emails, social media messages, and other communications.
 
 ## 🎯 The Problem
 
@@ -44,7 +44,8 @@ Identifies AI-generated text using 9 heuristics:
   - Users guess: Safe / Suspicious / Scam
   - Instant feedback and score tracking
   - Educational explanations
-- **About & Ethics** (`about.html`) — Transparency page
+- **About** (`about.html`) — Project story and mission
+- **Ethics** (`ethics.html`) — Transparency, privacy, and AI detection boundaries
   - Why this project exists
   - How AI helps and limitations
   - Privacy commitment (all analysis is local—no data sent anywhere)
@@ -115,7 +116,7 @@ Both functions return **reasons** explaining the verdict, making it educational.
 
 ## 🎓 Educational Value
 
-Unlike a simple "yes/no" detector, AI Scam Sensei:
+Unlike a simple "yes/no" detector, Scamalyst:
 - ✅ Explains WHY a message is flagged
 - ✅ Teaches real scam tactics
 - ✅ Shows linguistic patterns of AI text
@@ -154,7 +155,7 @@ See `GITHUB_PAGES_SETUP.md` for step-by-step instructions.
 In short:
 1. Push to GitHub
 2. Enable Pages in repo settings
-3. Site is live at `https://YOUR-USERNAME.github.io/ai-scam-sensei/`
+3. Site is live at `https://YOUR-USERNAME.github.io/scamalyst/`
 
 ## 📝 License
 

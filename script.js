@@ -1065,7 +1065,7 @@ function localChatReply(userText) {
   const text = (userText || '').toLowerCase();
 
   const replies = [
-    { keys: ['what is scamsensei', 'what is fraudlens', 'what is scamalyst', 'what does this site do', 'what is this'],
+    { keys: ['what is scamalyst', 'what does this site do', 'what is this'],
       answer: 'Scamalyst helps you spot scam patterns and teaches red flags in messages and websites. Use Analyze for a quick check and Practice for examples.' },
     { keys: ['how does it work', 'how do i use', 'how to use'],
       answer: 'Paste a message or URL into Analyze. You will get a risk score and red flags. Practice Mode shows examples and explanations.' },

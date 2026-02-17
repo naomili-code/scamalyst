@@ -1,7 +1,7 @@
 # 🚀 Project Status: READY FOR TESTING & DEPLOYMENT
 
 **Date:** February 5, 2026  
-**Project:** AI Scam Sensei  
+**Project:** Scamalyst  
 **Status:** ✅ All pages created and styled • Dual detection working • Ready for final testing
 
 ---
@@ -85,7 +85,7 @@
 
 ### About & Ethics Page (about.html)
 - 8 comprehensive sections:
-  1. Why ScamSensei exists
+   1. Why Scamalyst exists
   2. How AI helps & what it misses
   3. Privacy commitment
   4. Target audience
@@ -258,16 +258,16 @@ py -3 -m http.server 8000
    ```bash
    git init
    git add .
-   git commit -m "AI Scam Sensei - GWC submission"
+   git commit -m "Scamalyst - GWC submission"
    git branch -M main
-   git remote add origin https://github.com/YOUR-USERNAME/ai-scam-sensei.git
+   git remote add origin https://github.com/YOUR-USERNAME/scamalyst.git
    git push -u origin main
    ```
 
 2. **Enable GitHub Pages**
    - Settings → Pages → Source: main branch → Save
    - Wait 1-2 minutes for deployment
-   - Visit: https://YOUR-USERNAME.github.io/ai-scam-sensei/
+   - Visit: https://YOUR-USERNAME.github.io/scamalyst/
 
 3. **Submit to GWC**
    - Update PROJECT_PITCH.md with live link
