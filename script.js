@@ -335,7 +335,7 @@ function renderMessageResult(scamRes, aiRes){
   if(messageInsights) messageInsights.classList.remove('hidden');
 
   if(messageEl) {
-    const scamType = classifyScamType(messageEl.value, scamRes.reasons);
+    const scamType = classifyScamType(messageEl.value, scamRes.reasons, scamRes.score);
     renderScamTypeInsight(scamType);
     renderSafetyActions(scamType.type, scamRes.score);
     renderHighlightedPreview(messageEl.value);
@@ -411,7 +411,7 @@ function renderWebsiteResult(websiteRes) {
   if(messageInsights) messageInsights.classList.add('hidden');
 }
 
-function classifyScamType(text, reasons = []) {
+function classifyScamType(text, reasons = [], scamScore = 0) {
   const lower = (text || '').toLowerCase();
   const typeScores = {
     phishing: 0,
@@ -433,7 +433,7 @@ function classifyScamType(text, reasons = []) {
   if(/paypal|amazon|apple|microsoft|google|bank of america|chase|wells fargo/i.test(lower)) typeScores.impersonation += 1;
   if(reasons.some(r => /mismatch|official address/i.test(r))) typeScores.impersonation += 2;
 
-  let type = 'phishing';
+  let type = null;
   let score = -1;
   for(const [candidate, candidateScore] of Object.entries(typeScores)) {
     if(candidateScore > score) {
@@ -458,8 +458,16 @@ function classifyScamType(text, reasons = []) {
     impersonation: {
       label: 'Brand / Identity Impersonation',
       detail: 'This message appears to imitate a trusted person or organization.'
+    },
+    neutral: {
+      label: 'No Clear Scam Pattern',
+      detail: 'No specific scam pattern is strongly indicated from this text alone.'
     }
   };
+
+  if(scamScore < 3 || score <= 0 || !type) {
+    return { type: 'neutral', ...labels.neutral };
+  }
 
   return { type, ...labels[type] };
 }
