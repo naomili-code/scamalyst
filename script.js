@@ -336,7 +336,7 @@ function renderMessageResult(scamRes, aiRes){
 
   if(messageEl) {
     const scamType = classifyScamType(messageEl.value, scamRes.reasons, scamRes.score);
-    renderScamTypeInsight(scamType);
+    renderScamTypeInsight(scamType, scamRes.score);
     renderSafetyActions(scamType.type, scamRes.score);
     renderHighlightedPreview(messageEl.value);
   }
@@ -472,9 +472,19 @@ function classifyScamType(text, reasons = [], scamScore = 0) {
   return { type, ...labels[type] };
 }
 
-function renderScamTypeInsight(scamType) {
+function hasActionableScamType(type, score) {
+  return Boolean(type && type !== 'neutral' && score >= 3);
+}
+
+function renderScamTypeInsight(scamType, score) {
+  const cardEl = document.getElementById('scamTypeCard');
   const labelEl = document.getElementById('scamTypeLabel');
   const detailEl = document.getElementById('scamTypeDetail');
+
+  const show = hasActionableScamType(scamType?.type, score);
+  if(cardEl) cardEl.classList.toggle('hidden', !show);
+  if(!show) return;
+
   if(labelEl) labelEl.textContent = scamType.label;
   if(detailEl) detailEl.textContent = scamType.detail;
 }
@@ -515,9 +525,14 @@ function getSafetyActionsByType(type, score) {
 }
 
 function renderSafetyActions(type, score) {
+  const cardEl = document.getElementById('safetyActionsCard');
   const listEl = document.getElementById('safetyActionsList');
   if(!listEl) return;
+
+  const show = hasActionableScamType(type, score);
+  if(cardEl) cardEl.classList.toggle('hidden', !show);
   listEl.innerHTML = '';
+  if(!show) return;
 
   const actions = getSafetyActionsByType(type, score);
   actions.forEach(action => {
