@@ -272,8 +272,19 @@ function renderMessageResult(scamRes, aiRes){
     reasonsEl.appendChild(li); 
   });
   
+  const aiReasonList = Array.isArray(aiRes?.reasons) ? [...aiRes.reasons] : [];
+  const hasConcreteAIReason = aiReasonList.some((r) => r && r !== 'No AI indicators detected');
+
+  if(aiRes.score >= 0.35 && !hasConcreteAIReason) {
+    aiReasonList.push('Composite linguistic patterns suggest possible AI-generated writing.');
+  }
+
+  if(aiReasonList.length === 0) {
+    aiReasonList.push('No AI indicators detected');
+  }
+
   // Add AI detection reasons with icons
-  aiRes.reasons.forEach((r, idx) => { 
+  aiReasonList.forEach((r, idx) => { 
     const li = document.createElement('li'); 
     const icon = getThreatIcon('AI');
     li.innerHTML = `${icon} <strong>AI Indicator:</strong> ${r}`;
