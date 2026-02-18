@@ -308,26 +308,8 @@ function renderMessageResult(scamRes, aiRes){
     animateCounter(aiScoreEl, 0, Math.round(aiRes.score*100), '%');
   }
   
-  // Add risk badge above red flags section
   const redFlagsSection = document.querySelector('.red-flags-section');
-  if(redFlagsSection) {
-    let badgeHTML = renderRiskBadge(scamRes.score);
-    const existingBadge = redFlagsSection.querySelector('.risk-badge');
-    if(existingBadge) {
-      existingBadge.replaceWith(badgeHTML);
-    } else {
-      redFlagsSection.insertAdjacentHTML('afterbegin', badgeHTML);
-    }
-    
-    // Apply risk-based background color
-    redFlagsSection.classList.remove('risk-very-low', 'risk-low', 'risk-medium', 'risk-high', 'risk-very-high');
-    const score = scamRes.score;
-    if(score < 1) redFlagsSection.classList.add('risk-very-low');
-    else if(score < 3) redFlagsSection.classList.add('risk-low');
-    else if(score < 5) redFlagsSection.classList.add('risk-medium');
-    else if(score < 7) redFlagsSection.classList.add('risk-high');
-    else redFlagsSection.classList.add('risk-very-high');
-  }
+  updateRiskBadge(redFlagsSection, scamRes.score);
   
   // Threat breakdown chart removed for clarity
 
@@ -384,31 +366,32 @@ function renderWebsiteResult(websiteRes) {
     reasonsEl.appendChild(li);
   }
   
-  // Add risk badge
   const redFlagsSection = document.querySelector('.red-flags-section');
-  if(redFlagsSection) {
-    let badgeHTML = renderRiskBadge(websiteRes.score);
-    const existingBadge = redFlagsSection.querySelector('.risk-badge');
-    if(existingBadge) {
-      existingBadge.replaceWith(badgeHTML);
-    } else {
-      redFlagsSection.insertAdjacentHTML('afterbegin', badgeHTML);
-    }
-    
-    // Apply risk-based background color to red-flags-section
-    redFlagsSection.classList.remove('risk-very-low', 'risk-low', 'risk-medium', 'risk-high', 'risk-very-high');
-    const score = websiteRes.score;
-    if(score < 1) redFlagsSection.classList.add('risk-very-low');
-    else if(score < 3) redFlagsSection.classList.add('risk-low');
-    else if(score < 5) redFlagsSection.classList.add('risk-medium');
-    else if(score < 7) redFlagsSection.classList.add('risk-high');
-    else redFlagsSection.classList.add('risk-very-high');
-  }
+  updateRiskBadge(redFlagsSection, websiteRes.score);
   
   // Threat breakdown chart removed for clarity
 
   const messageInsights = document.getElementById('messageInsights');
   if(messageInsights) messageInsights.classList.add('hidden');
+}
+
+function updateRiskBadge(redFlagsSection, score) {
+  if(!redFlagsSection) return;
+
+  const badgeHTML = renderRiskBadge(score);
+
+  const textArtifactRegex = /<span class="risk-badge[^>]*>[^<]*<\/span>/g;
+  redFlagsSection.innerHTML = redFlagsSection.innerHTML.replace(textArtifactRegex, '').trim();
+
+  redFlagsSection.querySelectorAll('.risk-badge').forEach((badge) => badge.remove());
+  redFlagsSection.insertAdjacentHTML('afterbegin', badgeHTML);
+
+  redFlagsSection.classList.remove('risk-very-low', 'risk-low', 'risk-medium', 'risk-high', 'risk-very-high');
+  if(score < 1) redFlagsSection.classList.add('risk-very-low');
+  else if(score < 3) redFlagsSection.classList.add('risk-low');
+  else if(score < 5) redFlagsSection.classList.add('risk-medium');
+  else if(score < 7) redFlagsSection.classList.add('risk-high');
+  else redFlagsSection.classList.add('risk-very-high');
 }
 
 function classifyScamType(text, reasons = [], scamScore = 0) {
