@@ -54,8 +54,8 @@ function initModeToggle() {
       websiteMode.classList.remove('hidden');
       modeMessageBtn.classList.remove('active');
       modeWebsiteBtn.classList.add('active');
-      exampleLabel.style.display = 'inline-block';
-      exampleSelect.style.display = 'inline-block';
+      exampleLabel.style.display = 'none';
+      exampleSelect.style.display = 'none';
       if(aiMeterContainer) aiMeterContainer.style.display = 'none';
       // Clear previous results
       if(resultEl) resultEl.classList.add('hidden');
