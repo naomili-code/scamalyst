@@ -611,6 +611,35 @@ label {
     align-items: center;
 }
 
+.example-controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.35rem 0.45rem 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(47,122,120,0.08), rgba(217,166,106,0.08));
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.example-controls label {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.example-controls select {
+    min-width: 260px;
+    border-radius: 999px;
+    border-width: 1px;
+    padding: 0.5rem 0.85rem;
+    background: var(--card);
+    font-size: 0.86rem;
+}
+
 button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(85, 108, 214, 0.5);
@@ -1206,6 +1235,19 @@ body.dark-mode .mode-btn.active {
     color: white !important;
     border-color: rgba(47,122,120,0.6) !important;
     box-shadow: 0 6px 20px rgba(0,0,0,0.6) !important;
+}
+
+body.dark-mode .example-controls {
+    background: linear-gradient(135deg, rgba(47,122,120,0.25), rgba(217,166,106,0.12));
+    border-color: var(--border);
+}
+
+body.dark-mode .example-controls label {
+    color: #d3f1ef;
+}
+
+body.dark-mode .example-controls select {
+    background: rgba(20,22,24,0.95);
 }
 
 /* Home page: ensure all card-like elements switch from white to dark card backgrounds */
@@ -2089,6 +2131,24 @@ body.dark-mode .red-flags-list li {
     .red-flags-list li {
         padding: 1rem;
         padding-left: 1.2rem;
+    }
+
+    .input-controls {
+        align-items: stretch;
+    }
+
+    .example-controls {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-between;
+        border-radius: 12px;
+        padding: 0.5rem 0.65rem;
+    }
+
+    .example-controls select {
+        width: 100%;
+        min-width: 0;
+        border-radius: 8px;
     }
 }
 

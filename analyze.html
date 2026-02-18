@@ -72,18 +72,20 @@
         <div class="input-controls">
           <button id="analyzeBtn" class="btn btn-primary" aria-label="Analyze the message for scams and AI" type="button" onclick="return runAnalysis(event)">Analyze</button>
           <button id="clearBtn" class="btn btn-secondary" type="button">Clear</button>
-          <label for="exampleSelect" style="margin-left:auto" id="exampleLabel">Try an example:</label>
-          <select id="exampleSelect">
-            <option value="">-- Choose an example --</option>
-            <option value="scam">Phishing Scam</option>
-            <option value="attachment-lure">Attachment Lure (Malicious File)</option>
-            <option value="sender-mismatch">Sender Mismatch (Brand Impersonation)</option>
-            <option value="invoice-diversion">Invoice / Payment Diversion</option>
-            <option value="ai-chatgpt">AI-Generated (ChatGPT)</option>
-            <option value="ai-formal">AI-Generated (Formal)</option>
-            <option value="human-casual">Human Writing (Casual)</option>
-            <option value="human-professional">Human Writing (Professional)</option>
-          </select>
+          <div class="example-controls" aria-label="Example message picker">
+            <label for="exampleSelect" id="exampleLabel">Try an example:</label>
+            <select id="exampleSelect">
+              <option value="">-- Choose an example --</option>
+              <option value="scam">Phishing Scam</option>
+              <option value="attachment-lure">Attachment Lure (Malicious File)</option>
+              <option value="sender-mismatch">Sender Mismatch (Brand Impersonation)</option>
+              <option value="invoice-diversion">Invoice / Payment Diversion</option>
+              <option value="ai-chatgpt">AI-Generated (ChatGPT)</option>
+              <option value="ai-formal">AI-Generated (Formal)</option>
+              <option value="human-casual">Human Writing (Casual)</option>
+              <option value="human-professional">Human Writing (Professional)</option>
+            </select>
+          </div>
         </div>
       </section>
 
