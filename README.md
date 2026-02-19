@@ -1,14 +1,14 @@
-# 🧠 Scamalyst
+# Scamalyst
 
 **Learn to spot phishing scams AND AI-generated text before they fool you.**
 
 Scamalyst is a free, open-source educational tool that helps users detect both phishing scams and AI-generated text in emails, social media messages, and other communications.
 
-## 🎯 The Problem
+## The Problem
 
 Scammers use psychology and language tricks to manipulate victims. Meanwhile, the rise of AI-generated text creates new risks: AI can help create convincing phishing emails at scale. Users need practical tools to recognize these threats.
 
-## ✨ What It Does
+## What It Does
 
 ### Scam Detection
 Analyzes messages for 10+ red flags:
@@ -31,7 +31,7 @@ Identifies AI-generated text using 9 heuristics:
 8. **N-gram patterns** — AI repeats phrase structures
 9. **Formal punctuation** — AI uses more commas and semicolons
 
-## 📱 Pages
+## Pages
 
 - **Home** (`home.html`) — Landing page with value proposition and CTA
 - **Analyze** (`analyze.html`) — Main tool for testing messages
@@ -53,7 +53,7 @@ Identifies AI-generated text using 9 heuristics:
   - AI detection ethics and limitations
   - Next steps for improvement
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **HTML5** — Semantic markup
 - **CSS3** — Responsive design (mobile-first)
@@ -62,7 +62,7 @@ Identifies AI-generated text using 9 heuristics:
 - **Zero backend** — No data collection, no user tracking
 - **Privacy-first** — Messages never leave your device
 
-## 🚀 Running Locally
+## Running Locally
 
 ### Option 1: Python HTTP Server (Recommended)
 ```bash
@@ -96,7 +96,7 @@ scamalyst/
 └── pexels-googledeepmind-17485706.jpg # Background image
 ```
 
-## 🧠 How It Works
+## How It Works
 
 ### Scam Analysis
 ```javascript
@@ -116,7 +116,7 @@ detectAI(text) → {score: 0-1, verdict: string, reasons: array}
 
 Both functions return **reasons** explaining the verdict, making it educational.
 
-## 🎓 Educational Value
+## Educational Value
 
 Unlike a simple "yes/no" detector, Scamalyst:
 - ✅ Explains WHY a message is flagged
@@ -141,23 +141,15 @@ Unlike a simple "yes/no" detector, Scamalyst:
 4. **No ML** — Rule-based heuristics, not machine learning (simpler & more explainable)
 5. **False positives possible** — Always verify suspicious messages independently
 
-## 🏆 Project Highlights
+## ✨ Project Highlights
 
 This project emphasizes:
 - **AI + Cybersecurity** — Detects both phishing scams and AI-generated text
 - **Real-world impact** — Helps protect identity, money, and peace of mind
 - **Accessible UX** — Clear, approachable language for broad audiences
 - **Ethical approach** — Transparent about capabilities and limitations
-- **Scalable deployment** — Can be hosted for free on GitHub Pages
+- **Scalable deployment** — Can be hosted for free on GitHub 
 
-## 🚀 Deployment (GitHub Pages)
-
-See `GITHUB_PAGES_SETUP.md` for step-by-step instructions.
-
-In short:
-1. Push to GitHub
-2. Enable Pages in repo settings
-3. Site is live at `https://YOUR-USERNAME.github.io/scamalyst/`
 
 ## 📝 License
 
@@ -165,7 +157,6 @@ Open source for educational use. Feel free to fork, modify, and improve!
 
 ## 🙌 Credits
 
-- **Project developer**
 - **Pexels** — Background image
 - **Everyone who reported phishing attempts** — Your real-world examples made this possible
 
